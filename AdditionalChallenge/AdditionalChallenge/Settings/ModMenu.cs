@@ -46,24 +46,39 @@ public static class ModMenu
             : 1));
 
             //satchel custom slider currently broken
-            /*CoolDownEffectsMenu.AddElement(new CustomSlider($"Cool Down",
+            CoolDownEffectsMenu.AddElement(new CustomSlider($"Cool Down",
                 (s) =>
                 {
                     AdditionalChallenge.settings.Floats[
                         MiscExtensions.GetKey(coolDownEffect, nameof(coolDownEffect.coolDown))] = s;
                     AdditionalChallenge.Instance.MatchSettings();
                 },
-                () => AdditionalChallenge.settings.Floats[MiscExtensions.GetKey(coolDownEffect, nameof(coolDownEffect.coolDown))] ,
+                () =>
+                {
+                    if (AdditionalChallenge.settings.Floats.ContainsKey(
+                            MiscExtensions.GetKey(coolDownEffect, nameof(coolDownEffect.coolDown))))
+                    {
+                        return AdditionalChallenge.settings.Floats[
+                            MiscExtensions.GetKey(coolDownEffect, nameof(coolDownEffect.coolDown))];
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                },
                 Id: $"{coolDownEffect.ToggleName} cool down")
                 {
-                    isVisible = AdditionalChallenge.settings.Booleans[MiscExtensions.GetKey(coolDownEffect, nameof(coolDownEffect.IsEnabled))],
+                    isVisible =
+                        AdditionalChallenge.settings.Booleans.ContainsKey(MiscExtensions.GetKey(coolDownEffect, nameof(coolDownEffect.IsEnabled))) ?
+                            AdditionalChallenge.settings.Booleans[MiscExtensions.GetKey(coolDownEffect, nameof(coolDownEffect.IsEnabled))] :
+                            false,
                     minValue = 0,
                     maxValue = 150,
                     wholeNumbers = false,
                 }
-                );*/
+                );
             
-            float start = 0;
+            /*float start = 0;
             float step = 0.5f;
             float end = 120f;
             CoolDownEffectsMenu.AddElement(new HorizontalOption($"{coolDownEffect.ToggleName} cool down",
@@ -98,7 +113,7 @@ public static class ModMenu
                     AdditionalChallenge.settings.Booleans.ContainsKey(MiscExtensions.GetKey(coolDownEffect, nameof(coolDownEffect.IsEnabled))) ?
                      AdditionalChallenge.settings.Booleans[MiscExtensions.GetKey(coolDownEffect, nameof(coolDownEffect.IsEnabled))] :
                      false
-                });
+                });*/
         }
     }
     
