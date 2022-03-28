@@ -5,18 +5,15 @@ public class NailScale: AbstractPersistentEffect
     public override string ToggleName { get; protected set; } = "Nail Scale";
     public override string ToggleDesc { get; protected set; } = "Change your nail length";
 
-    protected override Func<bool> WhenUnDoEffectBeCalled { get; set; } = () =>
-    {
-        return false;
-    };
-
     private float nailScale;
 
-    protected override void StartEffect()
+    internal override void StartEffect()
     {
         nailScale = URandom.Range(0.3f, 5f);
         On.NailSlash.StartSlash += ChangeNailScale;
     }
+    
+    //TODO: Add Option for nail scale
     
     void ChangeNailScale(On.NailSlash.orig_StartSlash orig, NailSlash self)
     {

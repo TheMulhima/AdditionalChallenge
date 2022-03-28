@@ -5,12 +5,7 @@ public class CommunismPersistent: AbstractPersistentEffect
     public override string ToggleName { get; protected set; } = "Communism";
     public override string ToggleDesc { get; protected set; } = "Makes all enemies hp to the average HP in the scene";
 
-    protected override Func<bool> WhenUnDoEffectBeCalled { get; set; } = () =>
-    {
-        return false;
-    };
-
-    internal override void DoEffect()
+    internal override void RepeatedDoEffect()
     {
         HealthManager[] hms = UObject.FindObjectsOfType<HealthManager>();
         
@@ -26,7 +21,7 @@ public class CommunismPersistent: AbstractPersistentEffect
         }
     }
 
-    protected override void StartEffect()
+    internal override void StartEffect()
     {
         HealthManager[] hms = UObject.FindObjectsOfType<HealthManager>();
         
@@ -40,10 +35,5 @@ public class CommunismPersistent: AbstractPersistentEffect
         {
             hm.hp = average;
         }
-    }
-
-    internal override void UnDoEffect()
-    {
-        //you dont undo it you kinda just live with it
     }
 }

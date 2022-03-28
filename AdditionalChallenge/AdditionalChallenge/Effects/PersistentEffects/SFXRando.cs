@@ -7,15 +7,10 @@ public class SFXRando: AbstractPersistentEffect
     public override string ToggleName { get; protected set; } = "SFX Rando";
     public override string ToggleDesc { get; protected set; } = "randomizes SFX";
 
-    protected override Func<bool> WhenUnDoEffectBeCalled { get; set; } = () =>
-    {
-        return false;
-    };
-
     private Hook PlayOneShotHook; 
     private Hook PlayHook;
     
-    protected override void StartEffect()
+    internal override void StartEffect()
     {
         if (PlayHook == null)
         {

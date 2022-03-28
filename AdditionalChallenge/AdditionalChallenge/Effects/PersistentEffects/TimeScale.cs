@@ -9,6 +9,7 @@ public class TimeScale:AbstractPersistentEffect
     public override string ToggleName { get; protected set; } = "Increase TimeScale";
     public override string ToggleDesc { get; protected set; } = "Make TimeScale to a random value between 0.5 and 3 ";
 
+    //TODO: Add menu override for set scale
     protected override Func<bool> WhenUnDoEffectBeCalled { get; set; } = () =>
     {
         if (HeroController.instance == null
@@ -24,12 +25,7 @@ public class TimeScale:AbstractPersistentEffect
         this.DebugModCurrentTimeScale = typeof(DebugMod.DebugMod).GetField("CurrentTimeScale", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
     }
 
-    protected override void StartEffect()
-    {
-        
-    }
-    
-    internal override void DoEffect()
+    internal override void RepeatedDoEffect()
     {
         if (GameManager.instance != null && !GameManager.instance.IsGamePaused())
         {

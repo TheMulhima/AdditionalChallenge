@@ -1,4 +1,4 @@
-﻿namespace AdditionalChallenge.Extensions;
+﻿namespace AdditionalChallenge.EffectHelpers;
 
 public class BetterSpawnJarControl : MonoBehaviour
     {

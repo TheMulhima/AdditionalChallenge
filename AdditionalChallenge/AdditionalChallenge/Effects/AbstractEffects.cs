@@ -22,17 +22,7 @@ public abstract class AbstractEffects: MonoBehaviour
     {
         IsEnabled = false;
     }
-    /// <summary>
-    /// the function to run on to actually do the effect needs to be defined
-    /// </summary>
-    /// <returns></returns>
-    internal abstract void DoEffect();
-    
-    /// <summary>
-    /// Function to be overrided in the 2nd level of aabstract classes. Runs every frame
-    /// </summary>
-    public abstract void Update();
-    
+
     /// <summary>
     /// the name of the horizontal option in modmenu for this effect 
     /// </summary>
@@ -42,6 +32,11 @@ public abstract class AbstractEffects: MonoBehaviour
     /// The description of the horizontal option in modmenu for this effect
     /// </summary>
     public abstract string ToggleDesc { get; protected set; }
+    
+    /// <summary>
+    /// Gets whether or not its enabled
+    /// </summary>
+    public bool IsEnabled { get; protected set; } = false;
 
     /// <summary>
     /// Function to be overrided in the 2nd level of aabstract classes. Gives the information required to change varibales from settings
@@ -49,10 +44,8 @@ public abstract class AbstractEffects: MonoBehaviour
     /// <returns></returns>
     public abstract List<(PropertyInfo,AbstractEffects)> GetPropertiesToAdd();
 
-    /// <summary>
-    /// Gets whether or not its enabled
-    /// </summary>
-    public bool IsEnabled { get; protected set; } = false;
+    public abstract void AddElementsToModMenu(Menu MenuRef);
+
 
     /// <summary>
     /// A function to set whether its enabled or not

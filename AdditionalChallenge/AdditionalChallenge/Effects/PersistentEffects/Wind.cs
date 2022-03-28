@@ -55,13 +55,13 @@ public class Wind: AbstractPersistentEffect
         return orig;
     }
 
-    protected override void StartEffect()
+    internal override void StartEffect()
     {
         HeroController.instance.cState.inConveyorZone = true;
         HeroController.instance.conveyorSpeed = URandom.Range(-6f, 6f);
     }
     
-    void BeforePlayerDead()
+    private void BeforePlayerDead()
     {
         HeroController.instance.cState.inConveyorZone = false;
     }
@@ -91,3 +91,5 @@ public class Wind: AbstractPersistentEffect
         HeroController.instance.cState.inConveyorZone = false;
     }
 }
+
+//TODO: add menu to change wind direction

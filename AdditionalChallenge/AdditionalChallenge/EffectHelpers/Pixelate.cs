@@ -1,4 +1,4 @@
-﻿namespace AdditionalChallenge.Extensions;
+﻿namespace AdditionalChallenge.EffectHelpers;
 
 // Taken from https://github.com/danielshervheim/Image-Effects-for-Unity/blob/master/Assets/Image%20Effects/Scripts/Pixelate.cs except for few changes
     public class Pixelate : MonoBehaviour

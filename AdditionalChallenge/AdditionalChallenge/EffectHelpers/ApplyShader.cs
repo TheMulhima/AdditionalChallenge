@@ -1,4 +1,4 @@
-﻿namespace AdditionalChallenge.Extensions;
+﻿namespace AdditionalChallenge.EffectHelpers;
 public class ApplyShader : MonoBehaviour
 {
     public Material CurrentMaterial;

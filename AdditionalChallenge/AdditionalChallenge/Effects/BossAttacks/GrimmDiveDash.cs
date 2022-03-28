@@ -1,15 +1,14 @@
 ﻿namespace AdditionalChallenge.Effects.CoolDownEffects.BossAttacks;
-public class GrimmFireBats:AbstractBossAttack
+public class GrimmDiveDash:AbstractBossAttack
 {
-    public override string ToggleName { get; protected set; } = "Grimm Firebats";
-    public override string ToggleDesc { get; protected set; } = "Summon and NKG to throw firebats and leave";
+    public override string ToggleName { get; protected set; } = "Grimm DiveDash";
+    public override string ToggleDesc { get; protected set; } = "Summon and NKG to do an dive dash and leave";
 
     private GameObject Grimm;
     private PlayMakerFSM ctrl;
-    private string WaitingForFirebats = nameof(WaitingForFirebats);
-    private string StartState = "FB Hero Pos";
+    private string WaitingForDiveDash = nameof(WaitingForDiveDash);
+    private string StartState = "AD Pos";
     
-
     protected override void CreateBoss()
     {
         DestroyImmediate(Grimm);
@@ -17,13 +16,14 @@ public class GrimmFireBats:AbstractBossAttack
         DontDestroyOnLoad(Grimm);
         Grimm.SetActive(true);
         ctrl = Grimm.LocateMyFSM("Control");
-        Grimm.gameObject.layer = 31;
+        //SFCore.Utils.FsmUtil.Log(ctrl);
+        Grimm.gameObject.layer = 31; //set to a layer that isnt in GlobalEnums.PhysLayers cuz i wanna avoid collision
+        
         
         //we will use this as a "idle" state
-        FsmState WaitingForUppercutState = ctrl.CopyState("Dormant", WaitingForFirebats);
+        FsmState WaitingForUppercutState = ctrl.CopyState("Dormant", WaitingForDiveDash);
         WaitingForUppercutState.ChangeTransition("WAKE", StartState);
-        
-        ctrl.GetState("Tele Out").ChangeTransition("FINISHED", WaitingForFirebats);
+        ctrl.GetState("Tele Out").ChangeTransition("FINISHED", WaitingForDiveDash);
         ctrl.Fsm.SaveActions();
         
         DestroyImmediate(Grimm.LocateMyFSM("constrain_x"));
@@ -44,16 +44,10 @@ public class GrimmFireBats:AbstractBossAttack
 
         ctrl.FsmVariables.FindFsmGameObject("Hero Obj").Value = HeroController.instance.gameObject;
         ctrl.FsmVariables.FindFsmGameObject("Self").Value = Grimm;
-        Vector3 pos = HeroController.instance.transform.position;
-        ctrl.GetState("FB Hero Pos").GetAction<FloatCompare>().float2.Value =
-            HeroController.instance.transform.position.x + (URandom.value <= 0.5 ? 10f : -10f);
-        ctrl.FsmVariables.FindFsmFloat("Ground Y").Value = pos.y + 2;
-        var teleL = ctrl.GetState("FB Tele L");
-        teleL.GetAction<RandomFloat>().min = pos.x - 7f;
-        teleL.GetAction<RandomFloat>().max = pos.x - 7f;
-        var teleR = ctrl.GetState("FB Tele R");
-        teleR.GetAction<RandomFloat>().min = pos.x + 7f;
-        teleR.GetAction<RandomFloat>().max = pos.x + 7f;
+        ctrl.FsmVariables.FindFsmFloat("Ground Y").Value = HeroController.instance.transform.position.y + 2f;
+        ctrl.FsmVariables.FindFsmFloat("AD Min X").Value = HeroController.instance.transform.position.x - 100f;
+        ctrl.FsmVariables.FindFsmFloat("AD Max X").Value = HeroController.instance.transform.position.x + 100f;
+        ctrl.GetState("AD Tele In").GetAction<SetPosition>().y = HeroController.instance.transform.position.y + 10f;
         ctrl.SetState(StartState);
     }
 }

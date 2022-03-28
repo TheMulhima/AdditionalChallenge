@@ -24,6 +24,8 @@ global using AdditionalChallenge.Extensions;
 global using AdditionalChallenge.Effects;
 global using AdditionalChallenge.Effects.CoolDownEffects;
 global using AdditionalChallenge.Effects.PersistentEffects;
+global using AdditionalChallenge.Effects.CoolDownEffects.BossAttacks;
+global using AdditionalChallenge.EffectHelpers;
 global using ReflectionHelper = Modding.ReflectionHelper;
 global using UObject = UnityEngine.Object;
 global using URandom = UnityEngine.Random;

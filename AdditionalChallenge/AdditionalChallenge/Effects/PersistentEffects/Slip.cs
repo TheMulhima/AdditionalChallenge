@@ -5,14 +5,9 @@ public class Slip: AbstractPersistentEffect
     public override string ToggleName { get; protected set; } = "Slip";
     public override string ToggleDesc { get; protected set; } = "Makes the floor slipery";
 
-    protected override Func<bool> WhenUnDoEffectBeCalled { get; set; } = () =>
-    {
-        return false;
-    };
-
     private float last_move_dir = 0;
 
-    protected override void StartEffect()
+    internal override void StartEffect()
     {
         On.HeroController.Move += MakeSlip;
     }
@@ -38,7 +33,6 @@ public class Slip: AbstractPersistentEffect
 
     internal override void UnDoEffect()
     {
-
         On.HeroController.Move -= MakeSlip;
     }
 }

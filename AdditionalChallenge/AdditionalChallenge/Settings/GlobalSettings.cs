@@ -42,24 +42,34 @@ public class GlobalSettings
                         var propertyInfo = list[i].Item1;
                         var instance = list[i].Item2;
                         Properties.Add((propertyInfo, instance));
-                        if (propertyInfo.PropertyType == typeof(bool))
-                        {
-                            Booleans[MiscExtensions.GetKey(instance, propertyInfo)] =
-                                ReflectionHelper.GetProperty<AbstractEffects, bool>(instance, propertyInfo.Name);
-                        }
-                        else if (propertyInfo.PropertyType == typeof(float))
-                        {
-                            Floats[MiscExtensions.GetKey(instance, propertyInfo)] =
-                                ReflectionHelper.GetProperty<AbstractCoolDownEffect, float>(
-                                    instance as AbstractCoolDownEffect,
-                                    propertyInfo.Name);
-                        }
+                        SetValuesInDicts(propertyInfo, instance);
                     }
                 }
             }
             GenerateReadmeFeature();
         }
+    }
 
+    private void SetValuesInDicts(PropertyInfo propertyInfo, AbstractEffects instance)
+    {
+        if (propertyInfo.PropertyType == typeof(bool))
+        {
+            Booleans[MiscExtensions.GetKey(instance, propertyInfo)] =
+                ReflectionHelper.GetProperty<AbstractEffects, bool>(instance, propertyInfo.Name);
+        }
+        else if (propertyInfo.PropertyType == typeof(float))
+        {
+            if (instance is AbstractCoolDownEffect coolDownEffect)
+            {
+                Floats[MiscExtensions.GetKey(instance, propertyInfo)] =
+                    ReflectionHelper.GetProperty<AbstractCoolDownEffect, float>(coolDownEffect,propertyInfo.Name);
+            }
+            else if (instance is AbstractBossAttack bossAttack)
+            {
+                Floats[MiscExtensions.GetKey(instance, propertyInfo)] =
+                    ReflectionHelper.GetProperty<AbstractBossAttack, float>(bossAttack,propertyInfo.Name);
+            }
+        }
     }
 
     [OnSerializing]
@@ -67,16 +77,7 @@ public class GlobalSettings
     {
         foreach (var (pi, instance) in Properties)
         {
-            if (pi.PropertyType == typeof(bool))
-            {
-                Booleans[MiscExtensions.GetKey(instance, pi)] = ReflectionHelper.GetProperty<AbstractEffects, bool>(instance, pi.Name);
-            }
-            else if (pi.PropertyType == typeof(float))
-            {
-                Floats[MiscExtensions.GetKey(instance, pi)] =
-                    ReflectionHelper.GetProperty<AbstractCoolDownEffect, float>(instance as AbstractCoolDownEffect,
-                        pi.Name);
-            }
+            SetValuesInDicts(pi, instance);
         }
     }
 
@@ -88,12 +89,24 @@ public class GlobalSettings
             if (pi.PropertyType == typeof(bool))
             {
                 if (Booleans.TryGetValue(MiscExtensions.GetKey(instance, pi), out var val))
-                    ReflectionHelper.SetProperty<AbstractEffects, bool>(instance, pi.Name, val);
+                    ReflectionHelper.SetProperty(instance, pi.Name, val);
             }
             else if (pi.PropertyType == typeof(float))
             {
-                if (Floats.TryGetValue(MiscExtensions.GetKey(instance, pi), out float val))
-                    ReflectionHelper.SetProperty<AbstractCoolDownEffect, float>(instance as AbstractCoolDownEffect, pi.Name, val);
+                if (instance is AbstractCoolDownEffect coolDownEffect)
+                {
+                    if (Floats.TryGetValue(MiscExtensions.GetKey(instance, pi), out float val))
+                    {
+                        ReflectionHelper.SetProperty(coolDownEffect, pi.Name, val);
+                    }
+                }
+                else if (instance is AbstractBossAttack bossAttack)
+                {
+                    if (Floats.TryGetValue(MiscExtensions.GetKey(instance, pi), out float val))
+                    {
+                        ReflectionHelper.SetProperty(bossAttack, pi.Name, val);
+                    }
+                }
             }
             AdditionalChallenge.Instance.MatchSettings();
         }

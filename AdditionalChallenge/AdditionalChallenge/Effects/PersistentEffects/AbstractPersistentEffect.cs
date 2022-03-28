@@ -8,16 +8,29 @@ public abstract class AbstractPersistentEffect : AbstractEffects
     /// <summary>
     /// the condition for whether or not the DoEffect or UndoEffect is called
     /// </summary>
-    protected abstract Func<bool> WhenUnDoEffectBeCalled { get; set; }
+    protected virtual Func<bool> WhenUnDoEffectBeCalled { get; set; } = () => false;
 
-    protected abstract void StartEffect();
+    /// <summary>
+    /// Function to be called to start an effect
+    /// </summary>
+    internal virtual void StartEffect() {}
 
-    //this isnt needed as much
-    internal override void DoEffect() {}
+    /// <summary>
+    /// function to be called to repeatedly set/unset something to make effect work
+    /// </summary>
+    internal virtual void RepeatedDoEffect() {}
+
+    /// <summary>
+    /// Function to undo the effect
+    /// </summary>
+    internal virtual void UnDoEffect() {}
 
     private bool isEffectRunning = false;
 
-    public override void Update()
+    /// <summary>
+    /// Unity update function. We need to do it here because of the WhenUnDoEffectBeCalled option we have
+    /// </summary>
+    public void Update()
     {
         if (!WhenUnDoEffectBeCalled() && IsEnabled)
         {
@@ -28,7 +41,7 @@ public abstract class AbstractPersistentEffect : AbstractEffects
             }
             else
             {
-                DoEffect();
+                RepeatedDoEffect();
             }
         }
         else
@@ -49,9 +62,19 @@ public abstract class AbstractPersistentEffect : AbstractEffects
         };
     }
 
-    /// <summary>
-    /// Function to undo the effect
-    /// </summary>
-    internal abstract void UnDoEffect();
+    public override void AddElementsToModMenu(Menu MenuRef)
+    {
+        MenuRef.AddElement(new HorizontalOption(ToggleName, ToggleDesc,
+            new [] { "Enabled", "Disabled" },
+            (i) =>
+            {
+                AdditionalChallenge.settings.Booleans[Key] = i == 0;
+                AdditionalChallenge.Instance.MatchSettings();
+            },
+            () => AdditionalChallenge.settings.Booleans.ContainsKey(Key)
+                ? AdditionalChallenge.settings.Booleans[Key] ? 0 : 1 
+                : 1));
+    }
 
+    private string Key => MiscExtensions.GetKey(this, nameof(IsEnabled));
 }

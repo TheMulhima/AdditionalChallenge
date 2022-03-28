@@ -55,6 +55,7 @@ public class AdditionalChallenge : Mod, IGlobalSettings<GlobalSettings>, ICustom
     private void AddToDebugBinds()
     {
         //add to debug binds
+        /*
         foreach (var effect in ComponentHolder.GetComponents(typeof(AbstractEffects)).Select(effect => effect as AbstractEffects))
         {
             if (effect is AbstractCoolDownEffect)
@@ -66,7 +67,7 @@ public class AdditionalChallenge : Mod, IGlobalSettings<GlobalSettings>, ICustom
                 DebugMod.DebugMod.AddActionToKeyBindList(() => persistentEffect!.DoEffect(), $"Do {persistentEffect!.ToggleName}", "AC Persistent");
                 DebugMod.DebugMod.AddActionToKeyBindList(() => persistentEffect!.UnDoEffect(), $"UnDo {persistentEffect!.ToggleName}", "AC Persistent");
             }
-        }
+        }*/
     }
     public void MatchSettings()
     {
@@ -76,7 +77,7 @@ public class AdditionalChallenge : Mod, IGlobalSettings<GlobalSettings>, ICustom
             {
                 settings.Booleans[MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))] = false;
             }
-            effect.SetEnabled(settings.Booleans[MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))]);
+            effect!.SetEnabled(settings.Booleans[MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))]);
             if (effect is AbstractCoolDownEffect cooldownEffect)
             {
                 if (!settings.Floats.ContainsKey(MiscExtensions.GetKey(cooldownEffect, nameof(cooldownEffect.coolDown))))
@@ -85,6 +86,15 @@ public class AdditionalChallenge : Mod, IGlobalSettings<GlobalSettings>, ICustom
                 }
                 cooldownEffect.coolDown =
                     settings.Floats[MiscExtensions.GetKey(cooldownEffect, nameof(cooldownEffect.coolDown))];
+            }
+            else if (effect is AbstractBossAttack bossAttack)
+            {
+                if (!settings.Floats.ContainsKey(MiscExtensions.GetKey(bossAttack, nameof(bossAttack.timeBetweenAttacks))))
+                {
+                    settings.Floats[MiscExtensions.GetKey(bossAttack, nameof(bossAttack.timeBetweenAttacks))] = 0;
+                }
+                bossAttack.timeBetweenAttacks =
+                    settings.Floats[MiscExtensions.GetKey(bossAttack, nameof(bossAttack.timeBetweenAttacks))];
             }
         }
     }
