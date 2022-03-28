@@ -1,6 +1,5 @@
-﻿using AdditionalChallenge.Effects;
+﻿using Satchel;
 using JetBrains.Annotations;
-using Logger = On.InControl.Logger;
 
 namespace AdditionalChallenge;
 
@@ -13,7 +12,7 @@ public class AdditionalChallenge : Mod, IGlobalSettings<GlobalSettings>, ICustom
     public void OnLoadGlobal(GlobalSettings s) => settings = s;
     public GlobalSettings OnSaveGlobal() => settings;
 
-    public override string GetVersion() => AssemblyUtils.GetAssemblyVersionHash();
+    public override string GetVersion() => Satchel.AssemblyUtils.GetAssemblyVersionHash();
 
     [ItemCanBeNull] internal static List<AbstractEffects> AllEffects = new List<AbstractEffects>();
 

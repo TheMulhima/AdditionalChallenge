@@ -19,13 +19,4 @@ public static class MiscExtensions
     {
         return go.transform.Find(child).gameObject;
     }
-
-    public static void InsertCustomAction(this FsmState state, int index, Action method)
-    {
-        state.InsertCustomAction(state.Name, method, index);
-    }
-    public static void AddCustomAction(this FsmState state, Action method)
-    {
-        state.AddCustomAction(state.Name, method);
-    }
 }

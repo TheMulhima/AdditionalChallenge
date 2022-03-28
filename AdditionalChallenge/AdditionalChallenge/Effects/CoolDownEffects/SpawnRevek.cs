@@ -34,7 +34,7 @@ public class SpawnRevek:AbstractCoolDownEffect
         ctrl.SetState("Appear Pause");
 
         // ReSharper disable once ImplicitlyCapturedClosure (ctrl)
-        ctrl.GetState("Hit").AddCustomAction(() => UObject.Destroy(revek));
+        ctrl.GetState("Hit").AddMethod(() => UObject.Destroy(revek));
 
         // ReSharper disable once ImplicitlyCapturedClosure (ctrl)
         void OnUnload()

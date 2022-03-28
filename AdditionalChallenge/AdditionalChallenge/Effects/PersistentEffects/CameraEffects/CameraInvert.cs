@@ -1,4 +1,5 @@
-﻿namespace AdditionalChallenge.Effects.PersistentEffects;
+﻿using Satchel;
+namespace AdditionalChallenge.Effects.PersistentEffects;
 
 public class CameraInvert: BaseCameraEffects
 {

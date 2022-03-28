@@ -12,6 +12,11 @@ public abstract class AbstractCoolDownEffect : AbstractEffects
         {
             return false;
         }
+
+        if (HeroController.instance == null)
+        {
+            return false;
+        }
         timer += Time.deltaTime;
         if (timer > coolDown)
         {

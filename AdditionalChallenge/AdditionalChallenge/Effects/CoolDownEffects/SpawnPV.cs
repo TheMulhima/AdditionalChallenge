@@ -42,14 +42,14 @@ public class SpawnPV:AbstractCoolDownEffect
 
         var plume_gen = control.GetState("Plume Gen");
 
-        plume_gen.InsertCustomAction(3, () =>
+        plume_gen.InsertMethod(3, () =>
         {
             GameObject go = control.GetAction<SpawnObjectFromGlobalPool>("Plume Gen", 0).storeObject.Value;
             PlayMakerFSM fsm = go.LocateMyFSM("FSM");
             fsm.GetAction<FloatCompare>("Outside Arena?", 2).float2.Value = Mathf.Infinity;
             fsm.GetAction<FloatCompare>("Outside Arena?", 3).float2.Value = -Mathf.Infinity;
         });
-        plume_gen.InsertCustomAction(5, () =>
+        plume_gen.InsertMethod(5, () =>
             {
                 GameObject go = control.GetAction<SpawnObjectFromGlobalPool>("Plume Gen", 4).storeObject.Value;
                 PlayMakerFSM fsm = go.LocateMyFSM("FSM");

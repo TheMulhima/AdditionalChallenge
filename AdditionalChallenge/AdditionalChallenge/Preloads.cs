@@ -104,6 +104,9 @@ public static class Preloads
                 return orb;
             }),
             ("GG_Radiance", "Boss Control/Absolute Radiance")
+        },
+        {
+            ("NKG", null), ("GG_Grimm_Nightmare", "Grimm Control/Nightmare Grimm Boss")
         }
     };
     public static Dictionary<string, GameObject> InstantiableObjects { get; } = new();
@@ -135,14 +138,17 @@ public static class Preloads
             InstantiableObjects.Add(name, Spawnable(go, modify));
         }
 
-        AssemblyUtils.GetAssetBundleFromResources("Assets.shaders").LoadAllAssets<Shader>().ToList().ForEach(shader =>
+        Satchel.AssemblyUtils.GetAssetBundleFromResources("Assets.shaders").LoadAllAssets<Shader>().ToList().ForEach(shader =>
         {
             Shaders.Add(shader.name, shader);
             AdditionalChallenge.Instance.Log(shader.name);
         });
 
-        hwurmpU = AssemblyUtils.GetSpriteFromResources("Assets.hwurmpU.png");
+        hwurmpU = Satchel.AssemblyUtils.GetSpriteFromResources("Assets.hwurmpU.png");
+
+        OnPreloadsFinish?.Invoke();
     }
 
+    internal static event Action OnPreloadsFinish;
 
 }
