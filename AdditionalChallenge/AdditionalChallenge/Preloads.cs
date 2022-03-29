@@ -107,7 +107,10 @@ public static class Preloads
         },
         {
             ("NKG", null), ("GG_Grimm_Nightmare", "Grimm Control/Nightmare Grimm Boss")
-        }
+        },
+        {
+            ("markoth", null), ("GG_Ghost_Markoth_V", "Warrior/Ghost Warrior Markoth")
+        },
     };
     public static Dictionary<string, GameObject> InstantiableObjects { get; } = new();
     public static Dictionary<string, Shader> Shaders { get; } = new();
