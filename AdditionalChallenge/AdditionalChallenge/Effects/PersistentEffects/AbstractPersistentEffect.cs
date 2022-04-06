@@ -6,14 +6,10 @@
 public abstract class AbstractPersistentEffect : AbstractEffects
 {
     /// <summary>
-    /// the condition for whether or not the DoEffect or UndoEffect is called
+    /// Function to start the effect
     /// </summary>
-    protected virtual Func<bool> WhenUnDoEffectBeCalled { get; set; } = () => false;
-
-    /// <summary>
-    /// Function to be called to start an effect
-    /// </summary>
-    internal virtual void StartEffect() {}
+    /// <returns>Whether or not it actually was started</returns>
+    internal virtual bool StartEffect() => false;
 
     /// <summary>
     /// function to be called to repeatedly set/unset something to make effect work
@@ -23,21 +19,22 @@ public abstract class AbstractPersistentEffect : AbstractEffects
     /// <summary>
     /// Function to undo the effect
     /// </summary>
+    /// <returns>Whether or not it actually was undone</returns>
     internal virtual void UnDoEffect() {}
 
-    private bool isEffectRunning = false;
+
+    protected bool isEffectRunning = false;
 
     /// <summary>
     /// Unity update function. We need to do it here because of the WhenUnDoEffectBeCalled option we have
     /// </summary>
     public void Update()
     {
-        if (!WhenUnDoEffectBeCalled() && IsEnabled)
+        if (IsEnabled)
         {
             if (!isEffectRunning)
             {
-                StartEffect();
-                isEffectRunning = true;
+                isEffectRunning = StartEffect();
             }
             else
             {

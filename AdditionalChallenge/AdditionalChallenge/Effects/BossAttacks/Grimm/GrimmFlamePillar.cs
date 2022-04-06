@@ -42,7 +42,7 @@ public class GrimmFlamePillar:AbstractBossAttack
         {
             CreateBoss();
         }
-
+        Grimm.GetComponent<HealthManager>().hp = Int32.MaxValue;
         ctrl.FsmVariables.FindFsmGameObject("Hero Obj").Value = HeroController.instance.gameObject;
         ctrl.FsmVariables.FindFsmGameObject("Self").Value = Grimm;
         ctrl.FsmVariables.FindFsmFloat("Ground Y").Value = HeroController.instance.transform.position.y + 2f;

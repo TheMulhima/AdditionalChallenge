@@ -7,10 +7,11 @@ public class NailScale: AbstractPersistentEffect
 
     private float nailScale;
 
-    internal override void StartEffect()
+    internal override bool StartEffect()
     {
         nailScale = URandom.Range(0.3f, 5f);
         On.NailSlash.StartSlash += ChangeNailScale;
+        return true;
     }
     
     //TODO: Add Option for nail scale

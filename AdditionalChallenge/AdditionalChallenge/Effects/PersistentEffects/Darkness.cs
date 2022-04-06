@@ -5,19 +5,13 @@ public class Darkness: AbstractPersistentEffect
     public override string ToggleName { get; protected set; } = "Darkness";
     public override string ToggleDesc { get; protected set; } = "Makes everything dark";
 
-    protected override Func<bool> WhenUnDoEffectBeCalled { get; set; } = () =>
+    internal override bool StartEffect()
     {
-        if (HeroController.instance == null)
-        {
-            return true;
-        }
-        return false;
-    };
-
-    internal override void StartEffect()
-    {
+        if (HeroController.instance == null) return false;
+        
         DarknessHelper.Darken();
         On.GameManager.EnterHero += OnSceneLoad;
+        return true;
     }
 
     void OnSceneLoad(On.GameManager.orig_EnterHero orig, GameManager self, bool additiveGateSearch)

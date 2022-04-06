@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Text;
+using AdditionalChallenge.Effects.EnemyFollow;
 using Logger = InControl.Logger;
 
 namespace AdditionalChallenge;
@@ -11,6 +12,10 @@ public class GlobalSettings
     public Dictionary<string, bool> Booleans { get; set; } = new();
     public Dictionary<string, float> Floats { get; set; } = new();
 
+    public bool ChaosModeEnabled = false;
+    public int numEffects = 1;
+    public float chaosCoolDown = 0f;
+    public float delayBetweenTriggeringEffects = 0f;
     public GlobalSettings()
     {
         GameManager.instance.StartCoroutine(PopulateDicts());
@@ -128,6 +133,18 @@ public class GlobalSettings
         readme.AppendLine("**CoolDown Effects**");
         readme.AppendLine("These are effects that happen periodically based on the cooldown time set.");
         foreach (var effect in AllEffects.Where(effect => effect is AbstractCoolDownEffect))
+        {
+            readme.AppendLine($"{effect!.ToggleName}: {effect.ToggleDesc}");
+        }
+        readme.AppendLine("**Boss Attacks**");
+        readme.AppendLine("These are boss attacks that will periodically based on the cooldown time set.");
+        foreach (var effect in AllEffects.Where(effect => effect is AbstractBossAttack))
+        {
+            readme.AppendLine($"{effect!.ToggleName}: {effect.ToggleDesc}");
+        }
+        readme.AppendLine("**Enemy Follow**");
+        readme.AppendLine("These are enemies that will follow you if enabled.");
+        foreach (var effect in AllEffects.Where(effect => effect is AbstractEnemyFollow))
         {
             readme.AppendLine($"{effect!.ToggleName}: {effect.ToggleDesc}");
         }

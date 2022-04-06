@@ -20,7 +20,6 @@ public class PVDownSmash:AbstractBossAttack
         ctrl = PV.LocateMyFSM("Control");
         DestroyImmediate(PV.GetComponent<ConstrainPosition>());
         PV.gameObject.layer = 31;
-        SFCore.Utils.FsmUtil.MakeLog(ctrl);
         ctrl.GetState("Intro 1").ChangeTransition("FINISHED", "Intro Roar End");
         ctrl.GetState("Intro 1").GetAction<Wait>().time.Value = 0;
         var WaitingForSlashState = ctrl.CopyState("Intro Idle", WaitingForSlash);
@@ -38,6 +37,7 @@ public class PVDownSmash:AbstractBossAttack
         {
             while (PV.transform.position.y < ctrl.FsmVariables.FindFsmFloat("Stun Land Y").Value)
             {
+                if (ctrl.ActiveStateName != "Stomp Down") yield break;
                 Log($"Not less than yet {PV.transform.position.y} {ctrl.FsmVariables.FindFsmFloat("Stun Land Y").Value} ");
                 yield return null;
             }
@@ -45,6 +45,14 @@ public class PVDownSmash:AbstractBossAttack
             PV.transform.position = new Vector3(PV.transform.position.x,ctrl.FsmVariables.FindFsmFloat("Stun Land Y").Value);
             ctrl.SetState("Stomp Land");
         }
+        var stabjump = ctrl.GetState("Dstab Jump");
+        stabjump.RemoveAction(7);
+        stabjump.RemoveAction(1);
+        var stabair = ctrl.GetState("Dstab Air");
+        stabair.RemoveAction(4);
+        stabair.RemoveAction(1);
+        stabair.RemoveAction(0);
+        ctrl.Fsm.SaveActions();
         PV.GetComponent<MeshRenderer>().enabled = false;
         PV.GetComponent<HealthManager>().hp = Int32.MaxValue;
         ctrl.SetState("Init");

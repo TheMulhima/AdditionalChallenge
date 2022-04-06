@@ -34,7 +34,7 @@ public abstract class AbstractCoolDownEffect : AbstractEffects
 
     public void Update()
     {
-        if (IsEnabled)
+        if (IsEnabled && !AdditionalChallenge.settings.ChaosModeEnabled)
         {
             if (HandleTimer())
             {

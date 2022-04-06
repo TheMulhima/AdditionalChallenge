@@ -14,7 +14,30 @@ public static class Preloads
 
                 return obj;
             }),
-            ("Deepnest_East_11", "Super Spitter")
+            ("Deepnest_East_11", "Super Spitter")},
+        {
+            ("aspidHunter", null),
+            ("Crossroads_08", "Infected Parent/Spitter")
+        }, 
+        {
+            ("aspidMother", null),
+            ("Crossroads_19", "_Enemies/Hatcher")
+        },
+        {
+            ("aspidMotherSpawner", null),
+            ("Crossroads_19", "Hatcher Cage (1)")
+        },
+        {
+            ("carverHatcher", null),
+            ("Deepnest_26", "Centipede Hatcher")
+        },
+        {
+            ("carverHatcherSpawner", null),
+            ("Deepnest_26", "Centipede Cage")
+        },
+        {
+            ("soulTwister", null),
+            ("Ruins1_30", "Mage")
         },
         {
             ("Revek", null),

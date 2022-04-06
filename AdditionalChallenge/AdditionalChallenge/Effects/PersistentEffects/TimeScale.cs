@@ -10,16 +10,6 @@ public class TimeScale:AbstractPersistentEffect
     public override string ToggleDesc { get; protected set; } = "Make TimeScale to a random value between 0.5 and 3 ";
 
     //TODO: Add menu override for set scale
-    protected override Func<bool> WhenUnDoEffectBeCalled { get; set; } = () =>
-    {
-        if (HeroController.instance == null
-            || HeroController.instance.cState.transitioning
-            || GameManager.instance == null
-            || GameManager.instance.IsNonGameplayScene())
-            return true;
-        return false;
-    };
-    
     public void Start()
     {
         this.DebugModCurrentTimeScale = typeof(DebugMod.DebugMod).GetField("CurrentTimeScale", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
@@ -27,24 +17,30 @@ public class TimeScale:AbstractPersistentEffect
 
     internal override void RepeatedDoEffect()
     {
-        if (GameManager.instance != null && !GameManager.instance.IsGamePaused())
+        if (HeroController.instance == null
+            || HeroController.instance.cState.transitioning
+            || GameManager.instance == null
+            || GameManager.instance.IsNonGameplayScene()
+            || GameManager.instance.IsGamePaused())
         {
-            GameManager.instance.gameObject.GetAddComponent<DebugMod.MonoBehaviours.TimeScale>();
-            float num = UnityEngine.Random.Range(0.5f, 3f);
-            //float num = 2;
-            float newTimescaleValue = Mathf.Round(num * 10) / 10f;
-            DebugModCurrentTimeScale.SetValue(null, newTimescaleValue);
-            if (Time.timeScale != newTimescaleValue)
-            {
-                Time.timeScale = newTimescaleValue;
-            }
-
-            isSet = true;
-            previousVal = newTimescaleValue;
+            return;
         }
 
+        GameManager.instance.gameObject.GetAddComponent<DebugMod.MonoBehaviours.TimeScale>();
+        float num = UnityEngine.Random.Range(0.5f, 3f);
+        //float num = 2;
+        float newTimescaleValue = Mathf.Round(num * 10) / 10f;
+        DebugModCurrentTimeScale.SetValue(null, newTimescaleValue);
+        if (Time.timeScale != newTimescaleValue)
+        {
+            Time.timeScale = newTimescaleValue;
+        }
+
+        isSet = true;
+        previousVal = newTimescaleValue;
 
     }
+
     internal override void UnDoEffect()
     {
         if (!GameManager.instance.IsGamePaused())

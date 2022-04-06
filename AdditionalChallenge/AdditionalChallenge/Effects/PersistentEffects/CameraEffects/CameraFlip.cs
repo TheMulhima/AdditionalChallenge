@@ -7,13 +7,9 @@ public class CameraFlip: BaseCameraEffects
     
     protected override CameraEffects thisCameraEffect { get; set; } = CameraEffects.Flip;
 
-    protected override void EnableEffect()
-    {
-    }
+    protected override void EnableEffect() {}
 
-    protected override void RemoveEffect()
-    {
-    }
+    protected override void RemoveEffect() {}
     
     
 }

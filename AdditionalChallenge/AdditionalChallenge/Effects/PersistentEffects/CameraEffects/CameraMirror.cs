@@ -7,11 +7,7 @@ public class CameraMirror: BaseCameraEffects
     
     protected override CameraEffects thisCameraEffect { get; set; } = CameraEffects.Mirror;
     
-    protected override void EnableEffect()
-    {
-    }
+    protected override void EnableEffect() {}
 
-    protected override void RemoveEffect()
-    {
-    }
+    protected override void RemoveEffect() {}
 }

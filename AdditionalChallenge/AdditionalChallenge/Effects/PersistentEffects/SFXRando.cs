@@ -10,7 +10,7 @@ public class SFXRando: AbstractPersistentEffect
     private Hook PlayOneShotHook; 
     private Hook PlayHook;
     
-    internal override void StartEffect()
+    internal override bool StartEffect()
     {
         if (PlayHook == null)
         {
@@ -28,6 +28,8 @@ public class SFXRando: AbstractPersistentEffect
                 new Action<Action<AudioSource, AudioClip, float>, AudioSource, AudioClip, float>(PlayOneShot)
             );
         }
+
+        return true;
     }
     
     private static void PlayOneShot(Action<AudioSource, AudioClip, float> orig, AudioSource self, AudioClip clip, float volumeScale)

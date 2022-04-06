@@ -38,7 +38,7 @@ public abstract class AbstractBossAttack : AbstractEffects
 
     public void Update()
     {
-        if (IsEnabled)
+        if (IsEnabled && !AdditionalChallenge.settings.ChaosModeEnabled)
         {
             if (HandleTimer())
             {

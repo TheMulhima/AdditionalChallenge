@@ -8,7 +8,7 @@ public class Bindings: AbstractPersistentEffect
     public override string ToggleName { get; protected set; } = "Bindings";
     public override string ToggleDesc { get; protected set; } = "Enables all pantheon bindings";
 
-    internal override void StartEffect()
+    internal override bool StartEffect()
     {
         BindingsHelper.AddDetours();
 
@@ -16,6 +16,8 @@ public class Bindings: AbstractPersistentEffect
         On.GGCheckBoundSoul.OnEnter += BindingsHelper.CheckBoundSoulEnter;
 
         BindingsHelper.ShowIcons();
+
+        return true;
     }
 
     internal override void UnDoEffect()

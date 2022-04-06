@@ -45,7 +45,7 @@ public class GrimmUpperCut:AbstractBossAttack
         {
             CreateBoss();
         }
-
+        Grimm.GetComponent<HealthManager>().hp = Int32.MaxValue;
         ctrl.FsmVariables.FindFsmGameObject("Hero Obj").Value = HeroController.instance.gameObject;
         ctrl.FsmVariables.FindFsmGameObject("Self").Value = Grimm;
         Vector3 vector = HeroController.instance.transform.position;

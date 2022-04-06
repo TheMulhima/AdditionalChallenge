@@ -25,11 +25,17 @@ public abstract class BaseCameraEffects: AbstractPersistentEffect
     protected abstract CameraEffects thisCameraEffect { get; set; }
     protected abstract void RemoveEffect();
     protected abstract void EnableEffect();
-    
-    internal override void StartEffect()
+
+    internal override bool StartEffect()
     {
+        if (HeroController.instance == null || GameManager.instance == null ||
+            GameManager.instance.IsNonGameplayScene())
+            return false;
+
         activeEffects |= thisCameraEffect;
         EnableEffect();
+        return true;
+
     }
 
     internal override void UnDoEffect()
@@ -51,7 +57,9 @@ public abstract class BaseCameraEffects: AbstractPersistentEffect
         
         if (cam == null)
             return;
-
+        
+        if (GameManager.instance.sceneName == "Main_Menu") return;
+ 
         Matrix4x4 projectionMatrix = cam.projectionMatrix;
 
         if (activeEffects.HasValue(CameraEffects.Nausea))
@@ -95,6 +103,12 @@ public abstract class BaseCameraEffects: AbstractPersistentEffect
     {
         if (To.name == "Main_Menu")
         {
+            foreach (var effect in AdditionalChallenge.AllEffects.Where(effect => effect is BaseCameraEffects))
+            {
+                var cameraeffect = effect as BaseCameraEffects;
+                cameraeffect!.UnDoEffect();
+                cameraeffect!.isEffectRunning = false;
+            }
             activeEffects = default;
         }
     }

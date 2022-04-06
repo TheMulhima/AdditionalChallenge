@@ -21,11 +21,11 @@ public class CommunismPersistent: AbstractPersistentEffect
         }
     }
 
-    internal override void StartEffect()
+    internal override bool StartEffect()
     {
         HealthManager[] hms = UObject.FindObjectsOfType<HealthManager>();
         
-        if (hms.Length == 0) return;
+        if (hms.Length == 0) return false;
         
         float totalHealth = 0;
         hms.ToList().ForEach(hm => totalHealth += hm.hp);
@@ -35,5 +35,7 @@ public class CommunismPersistent: AbstractPersistentEffect
         {
             hm.hp = average;
         }
+
+        return true;
     }
 }

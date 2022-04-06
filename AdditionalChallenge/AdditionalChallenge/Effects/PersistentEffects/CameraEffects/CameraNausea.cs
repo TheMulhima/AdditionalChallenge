@@ -7,11 +7,7 @@ public class CameraNausea: BaseCameraEffects
     
     protected override CameraEffects thisCameraEffect { get; set; } = CameraEffects.Nausea;
     
-    protected override void EnableEffect()
-    {
-    }
+    protected override void EnableEffect() {}
 
-    protected override void RemoveEffect()
-    {
-    }
+    protected override void RemoveEffect() {}
 }

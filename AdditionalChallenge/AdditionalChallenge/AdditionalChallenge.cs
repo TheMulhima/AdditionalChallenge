@@ -71,6 +71,11 @@ public class AdditionalChallenge : Mod, IGlobalSettings<GlobalSettings>, ICustom
     }
     public void MatchSettings()
     {
+        if (settings.ChaosModeEnabled)
+        {
+            //ChaosMode.ChooseList();
+            return;
+        }
         foreach (var effect in AllEffects)
         {
             if (!settings.Booleans.ContainsKey(MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))))

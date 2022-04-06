@@ -21,6 +21,8 @@ public class PVDash:AbstractBossAttack
         ctrl = PV.LocateMyFSM("Control");
         DestroyImmediate(PV.GetComponent<ConstrainPosition>());
         PV.gameObject.layer = 31;
+        PV.GetChild("Colliders").GetComponentsInChildren<BoxCollider2D>().ToList()
+            .ForEach(collider => collider.isTrigger = true);
         //SFCore.Utils.FsmUtil.MakeLog(ctrl);
         ctrl.GetState("Intro 1").ChangeTransition("FINISHED", "Intro Roar End");
         ctrl.GetState("Intro 1").GetAction<Wait>().time.Value = 0;

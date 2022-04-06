@@ -41,7 +41,7 @@ public class GrimmFireBats:AbstractBossAttack
         {
             CreateBoss();
         }
-
+        Grimm.GetComponent<HealthManager>().hp = Int32.MaxValue;
         ctrl.FsmVariables.FindFsmGameObject("Hero Obj").Value = HeroController.instance.gameObject;
         ctrl.FsmVariables.FindFsmGameObject("Self").Value = Grimm;
         Vector3 pos = HeroController.instance.transform.position;

@@ -3,7 +3,7 @@
 public class Markoth:AbstractBossAttack
 {
     public override string ToggleName { get; protected set; } = "Markoth Shield Attack";
-    public override string ToggleDesc { get; protected set; } = "Let Markoth come and do a sheild attack";
+    public override string ToggleDesc { get; protected set; } = "Let Markoth come and do a shield attack";
     
     private GameObject MarkothObj;
     private PlayMakerFSM attacking, movement, sheildAttack;
@@ -84,7 +84,6 @@ public class Markoth:AbstractBossAttack
         {
             CreateBoss();
         }
-
         movement.SetState(NewWarpIn);
         sheildAttack.SetState("Ready");
     }

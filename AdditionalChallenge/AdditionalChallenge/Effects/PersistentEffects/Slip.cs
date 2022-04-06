@@ -7,9 +7,10 @@ public class Slip: AbstractPersistentEffect
 
     private float last_move_dir = 0;
 
-    internal override void StartEffect()
+    internal override bool StartEffect()
     {
         On.HeroController.Move += MakeSlip;
+        return true;
     }
     void MakeSlip(On.HeroController.orig_Move orig, HeroController self, float move_direction)
     {

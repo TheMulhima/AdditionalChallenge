@@ -10,7 +10,7 @@ public class CameraZoom: BaseCameraEffects
     
     protected override void EnableEffect()
     {
-        GameCameras.instance.tk2dCam .ZoomFactor = 5f;
+        GameCameras.instance.tk2dCam.ZoomFactor = 5f;
     }
 
     protected override void RemoveEffect()

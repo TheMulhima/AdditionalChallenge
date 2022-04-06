@@ -5,10 +5,11 @@ public class InvertedControls: AbstractPersistentEffect
     public override string ToggleName { get; protected set; } = "InvertedControls";
     public override string ToggleDesc { get; protected set; } = "Invert your controls";
 
-    internal override void StartEffect()
+    internal override bool StartEffect()
     {
         On.HeroController.Move += Invert;
         ModHooks.DashVectorHook += InvertDash;
+        return true;
     }
     internal override void UnDoEffect()
     {

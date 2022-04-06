@@ -26,8 +26,6 @@ public static class DarknessHelper
 
     public static void Darken()
     {
-        if (HeroController.instance == null) return;
-
         foreach (FsmState state in HeroController.instance.vignetteFSM.FsmStates)
         {
             foreach (FsmTransition trans in state.Transitions)

@@ -4,15 +4,6 @@ public class Wind: AbstractPersistentEffect
     public override string ToggleName { get; protected set; } = "Wind";
     public override string ToggleDesc { get; protected set; } = "Makes it so you always have to face wind";
 
-    protected override Func<bool> WhenUnDoEffectBeCalled { get; set; } = () =>
-    {
-        if (HeroController.instance == null)
-        {
-            return true;
-        }
-        return false;
-    };
-
     protected void Start()
     {
         IL.HeroController.FixedUpdate += DontStopCdash;
@@ -55,10 +46,15 @@ public class Wind: AbstractPersistentEffect
         return orig;
     }
 
-    internal override void StartEffect()
+    internal override bool StartEffect()
     {
+        if (HeroController.instance == null)
+        {
+            return false;
+        }
         HeroController.instance.cState.inConveyorZone = true;
         HeroController.instance.conveyorSpeed = URandom.Range(-6f, 6f);
+        return true;
     }
     
     private void BeforePlayerDead()

@@ -13,8 +13,8 @@ public class CameraInvert: BaseCameraEffects
     protected override void EnableEffect()
     {
         ivc = cam.gameObject.GetAddComponent<ApplyShader>();
-         invertMat ??= new(Preloads.Shaders["Custom/InvertColor"]);;
-         ivc.CurrentMaterial = invertMat;
+        invertMat ??= new(Preloads.Shaders["Custom/InvertColor"]);;
+        ivc.CurrentMaterial = invertMat;
         ivc.enabled = true;
     }
 
