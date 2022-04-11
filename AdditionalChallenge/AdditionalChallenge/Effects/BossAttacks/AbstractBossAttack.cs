@@ -2,7 +2,7 @@
 
 public abstract class AbstractBossAttack : AbstractEffects
 {
-    public void Awake()
+    public virtual void Awake()
     {
         Preloads.OnPreloadsFinish += CreateBoss;
     }

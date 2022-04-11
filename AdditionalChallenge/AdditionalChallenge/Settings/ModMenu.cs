@@ -53,7 +53,10 @@ public static class ModMenu
                     AdditionalChallenge.settings.chaosCoolDown = ((i + (start / step)) * step);
                 },
                 () => (int)((AdditionalChallenge.settings.chaosCoolDown / step) - (start / step)),
-                Id: $"Effects coolDown option"),
+                Id: $"Effects coolDown option")
+            {
+                isVisible = AdditionalChallenge.settings.ChaosModeEnabled
+            },
             new HorizontalOption("Number of effects", "The number of effects to be simutaneously enabled",
                 Enumerable.Range(0, 20 + 1)
                     .Select(x => x.ToString()).ToArray(),
@@ -62,7 +65,10 @@ public static class ModMenu
                     AdditionalChallenge.settings.numEffects = i;
                 },
                 () => AdditionalChallenge.settings.numEffects,
-                Id: $"Effects number option"),
+                Id: $"Effects number option")
+            {
+                isVisible = AdditionalChallenge.settings.ChaosModeEnabled
+            },
             new HorizontalOption("Effects trigger delay", "Delay between triggering effects. Allows you to make it so effects are happening all the time",
                 Enumerable.Range((int)(start / step), (int)(Math.Abs(end - start) / step) + 1)
                     .Select(x => (x * step).ToString()).ToArray(),
@@ -71,7 +77,10 @@ public static class ModMenu
                     AdditionalChallenge.settings.delayBetweenTriggeringEffects = ((i + (start / step)) * step);
                 },
                 () => (int)((AdditionalChallenge.settings.delayBetweenTriggeringEffects / step) - (start / step)),
-                Id: $"Effects delay option"),
+                Id: $"Effects delay option")
+            {
+                isVisible = AdditionalChallenge.settings.ChaosModeEnabled
+            },
         });
 
         return MenuRef.GetMenuScreen(modListMenu);
@@ -79,7 +88,8 @@ public static class ModMenu
 
     private static void CreateEnemyFollowMenu()
     {
-        EnemyFollowMenu ??= new Menu("Enemy Follow", Array.Empty<Element>());
+        if (EnemyFollowMenu != null) return;
+        EnemyFollowMenu = new Menu("Enemy Follow", Array.Empty<Element>());
         foreach (var effect in AdditionalChallenge.AllEffects.Where(effect => effect is AbstractEnemyFollow))
         {
             effect.AddElementsToModMenu(EnemyFollowMenu);
@@ -87,7 +97,8 @@ public static class ModMenu
     }
     private static void CreateBossAttacksMenu()
     {
-        BossAttacksMenu ??= new Menu("Boss Attacks", Array.Empty<Element>());
+        if (BossAttacksMenu != null) return;
+        BossAttacksMenu = new Menu("Boss Attacks", Array.Empty<Element>());
         foreach (var effect in AdditionalChallenge.AllEffects.Where(effect => effect is AbstractBossAttack))
         {
             effect.AddElementsToModMenu(BossAttacksMenu);
@@ -96,7 +107,8 @@ public static class ModMenu
     
     private static void CreateCoolDownEffectMenu()
     {
-        CoolDownEffectsMenu ??= new Menu("CoolDown Effects", Array.Empty<Element>());
+        if (CoolDownEffectsMenu != null) return;
+        CoolDownEffectsMenu = new Menu("CoolDown Effects", Array.Empty<Element>());
         foreach (var effect in AdditionalChallenge.AllEffects.Where(effect => effect is AbstractCoolDownEffect))
         {
             effect.AddElementsToModMenu(CoolDownEffectsMenu);
@@ -105,7 +117,8 @@ public static class ModMenu
     
     private static void CreatePersistentEffectMenu()
     {
-        PersistentEffectsMenu ??= new Menu("Persistent Effects", Array.Empty<Element>());
+        if (PersistentEffectsMenu != null) return;
+        PersistentEffectsMenu = new Menu("Persistent Effects", Array.Empty<Element>());
         foreach (var effect in AdditionalChallenge.AllEffects.Where(effect => effect is AbstractPersistentEffect))
         {
             effect.AddElementsToModMenu(PersistentEffectsMenu);

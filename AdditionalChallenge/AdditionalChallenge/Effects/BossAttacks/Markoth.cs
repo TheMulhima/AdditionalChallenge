@@ -10,6 +10,10 @@ public class Markoth:AbstractBossAttack
     private string doNothing = nameof(doNothing);
     private string NewWarpIn = nameof(NewWarpIn);
     
+    public override void Awake()
+    {
+        //temp fix cuz causing problems
+    }
     
     protected override void CreateBoss()
     {
@@ -73,7 +77,7 @@ public class Markoth:AbstractBossAttack
         
         MarkothObj.GetComponent<MeshRenderer>().enabled = false;
         MarkothObj.GetComponent<HealthManager>().hp = Int32.MaxValue;
-        MarkothObj.transform.position = new Vector3(Mathf.Infinity, Mathf.Infinity);
+        //MarkothObj.transform.position = new Vector3(Mathf.Infinity, Mathf.Infinity);
         attacking.SetState("Init");
         movement.SetState("Init");
         sheildAttack.SetState("Init");
