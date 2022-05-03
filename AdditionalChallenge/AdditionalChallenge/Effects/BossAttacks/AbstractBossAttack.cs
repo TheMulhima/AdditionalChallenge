@@ -4,7 +4,11 @@ public abstract class AbstractBossAttack : AbstractEffects
 {
     public virtual void Awake()
     {
-        Preloads.OnPreloadsFinish += CreateBoss;
+        On.HeroController.Start += (orig, self) =>
+        {
+            orig(self);
+            CreateBoss();
+        };
     }
     
     internal abstract void Attack();

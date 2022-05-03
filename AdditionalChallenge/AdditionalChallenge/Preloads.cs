@@ -137,9 +137,6 @@ public static class Preloads
     };
     public static Dictionary<string, GameObject> InstantiableObjects { get; } = new();
     public static Dictionary<string, Shader> Shaders { get; } = new();
-
-    public static Sprite hwurmpU;
-
     public static void Load(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
     {
         static GameObject Spawnable(GameObject obj, Func<GameObject, GameObject> modify)
@@ -169,12 +166,5 @@ public static class Preloads
             Shaders.Add(shader.name, shader);
             AdditionalChallenge.Instance.Log(shader.name);
         });
-
-        hwurmpU = Satchel.AssemblyUtils.GetSpriteFromResources("Assets.hwurmpU.png");
-
-        OnPreloadsFinish?.Invoke();
     }
-
-    internal static event Action OnPreloadsFinish;
-
 }
