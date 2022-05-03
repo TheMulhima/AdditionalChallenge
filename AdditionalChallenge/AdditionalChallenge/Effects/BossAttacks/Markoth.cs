@@ -13,6 +13,7 @@ public class Markoth:AbstractBossAttack
     public override void Awake()
     {
         //temp fix cuz causing problems
+        //TODO: fix sheild not disapearing
     }
     
     protected override void CreateBoss()

@@ -54,7 +54,6 @@ public abstract class AbstractEnemyFollow:AbstractEffects
         Enemy = UObject.Instantiate(enemyPrefab);
         Enemy.SetActive(true);
         Enemy.SetActiveChildren(true);
-        //Enemy.gameObject.layer = 31;
         Enemy.transform.position = GetRandomPosForEnemy();
         var hm = Enemy.GetComponent<HealthManager>();
         hm.hp = Int32.MaxValue;

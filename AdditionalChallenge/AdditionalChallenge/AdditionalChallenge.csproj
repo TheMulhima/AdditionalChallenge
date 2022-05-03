@@ -3,7 +3,7 @@
         <ProjectGuid>{B66C8E1B-C360-4881-B21F-8C1583AE2398}</ProjectGuid>
         <RootNamespace>AdditionalChallenge</RootNamespace>
         <AssemblyTitle>AdditionalChallenge</AssemblyTitle>
-        <AssemblyVersion>0.0.1.1</AssemblyVersion>
+        <AssemblyVersion>0.0.1.2</AssemblyVersion>
         <Deterministic>true</Deterministic>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <LangVersion>latest</LangVersion>

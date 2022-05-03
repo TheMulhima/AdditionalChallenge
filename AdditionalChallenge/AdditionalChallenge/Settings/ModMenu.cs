@@ -16,7 +16,7 @@ public static class ModMenu
         CreatePersistentEffectMenu();
         CreateBossAttacksMenu();
         CreateEnemyFollowMenu();
-        MenuRef = new Menu("Mod Menu", new Element[]
+        MenuRef ??= new Menu("Mod Menu", new Element[]
         {
             Blueprints.NavigateToMenu("Persistent Effect Toggles",
                 "", () => PersistentEffectsMenu.GetMenuScreen(MenuRef.menuScreen)),
