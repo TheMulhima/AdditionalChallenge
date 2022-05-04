@@ -16,6 +16,11 @@ public class GlobalSettings
     public int numEffects = 1;
     public float chaosCoolDown = 0f;
     public float delayBetweenTriggeringEffects = 0f;
+    
+    //inifinity means random;
+    public float windSpeed = Mathf.Infinity;
+    public float nailScale = Mathf.Infinity;
+    public float timeScale = Mathf.Infinity;
     public GlobalSettings()
     {
         GameManager.instance.StartCoroutine(PopulateDicts());

@@ -53,8 +53,25 @@ public class Wind: AbstractPersistentEffect
             return false;
         }
         HeroController.instance.cState.inConveyorZone = true;
-        HeroController.instance.conveyorSpeed = URandom.Range(-6f, 6f);
+
+        SetWind();
         return true;
+    }
+
+    private void SetWind()
+    {
+        float speed;
+        if (AdditionalChallenge.settings.windSpeed == Mathf.Infinity)
+        {
+            speed =  URandom.Range(-6f, 6f);
+        }
+        else
+        {
+            speed = AdditionalChallenge.settings.windSpeed;
+        }
+        Log($"Speed is {speed}");
+
+        HeroController.instance.conveyorSpeed = speed;
     }
     
     private void BeforePlayerDead()
@@ -86,6 +103,65 @@ public class Wind: AbstractPersistentEffect
     {
         HeroController.instance.cState.inConveyorZone = false;
     }
-}
+    
+    public override void AddElementsToModMenu(Menu MenuRef)
+    {
+        MenuRef.AddElement(new HorizontalOption(ToggleName, ToggleDesc,
+            new [] { "Enabled", "Disabled" },
+            (i) =>
+            {
+                AdditionalChallenge.settings.Booleans[Key] = i == 0;
+                AdditionalChallenge.Instance.MatchSettings();
+                
+                MenuRef.Find($"WindSpeedOption").isVisible = i == 0;
+                MenuRef.Update();
+            },
+            () => AdditionalChallenge.settings.Booleans.ContainsKey(Key)
+                ? AdditionalChallenge.settings.Booleans[Key] ? 0 : 1 
+                : 1));
+        
+        float start = -10f, stop = 10f, step = 0.5f;
+        string[] options = new[] { "Random" };
+        options = options.Concat(Enumerable.Range((int)(start / step), (int)(Math.Abs(stop - start) / step) + 1)
+            .Select(x => (x * step).ToString()).ToArray()).ToArray();
+        MenuRef.AddElement(new HorizontalOption("Wind Speed", "Choose Wind speed",
+            options,
+            i =>
+            {
+                if (i == 0)
+                {
+                    AdditionalChallenge.settings.windSpeed = Mathf.Infinity;
+                }
+                else
+                {
+                    i--;
+                    AdditionalChallenge.settings.windSpeed = ((i + (start / step)) * step);
+                }
 
-//TODO: add menu to change wind direction
+                if (IsEnabled && HeroController.instance.cState.inConveyorZone)
+                {
+                    SetWind();
+                }
+            },
+            () =>
+            {
+                if (AdditionalChallenge.settings.windSpeed == Mathf.Infinity)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return (int)((AdditionalChallenge.settings.windSpeed / step) - (start / step)) + 1;
+                }
+            },
+            Id: $"WindSpeedOption")
+        {
+            isVisible =
+                AdditionalChallenge.settings.Booleans.ContainsKey(isEnabledKey) ?
+                    AdditionalChallenge.settings.Booleans[isEnabledKey] :
+                    false
+        });
+    }
+    
+    private string isEnabledKey => MiscExtensions.GetKey(this, nameof(IsEnabled));
+}

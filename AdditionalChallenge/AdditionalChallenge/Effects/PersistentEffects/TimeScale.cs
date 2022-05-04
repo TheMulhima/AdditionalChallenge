@@ -9,7 +9,6 @@ public class TimeScale:AbstractPersistentEffect
     public override string ToggleName { get; protected set; } = "Increase TimeScale";
     public override string ToggleDesc { get; protected set; } = "Make TimeScale to a random value between 0.5 and 3 ";
 
-    //TODO: Add menu override for set scale
     public void Start()
     {
         this.DebugModCurrentTimeScale = typeof(DebugMod.DebugMod).GetField("CurrentTimeScale", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
@@ -27,8 +26,7 @@ public class TimeScale:AbstractPersistentEffect
         }
 
         GameManager.instance.gameObject.GetAddComponent<DebugMod.MonoBehaviours.TimeScale>();
-        float num = UnityEngine.Random.Range(0.5f, 3f);
-        //float num = 2;
+        float num = GetScale();
         float newTimescaleValue = Mathf.Round(num * 10) / 10f;
         DebugModCurrentTimeScale.SetValue(null, newTimescaleValue);
         if (Time.timeScale != newTimescaleValue)
@@ -38,7 +36,6 @@ public class TimeScale:AbstractPersistentEffect
 
         isSet = true;
         previousVal = newTimescaleValue;
-
     }
 
     internal override void UnDoEffect()
@@ -57,4 +54,75 @@ public class TimeScale:AbstractPersistentEffect
             }
         }
     }
+
+    private float GetScale()
+    {
+        if (AdditionalChallenge.settings.timeScale == Mathf.Infinity)
+        {
+            return UnityEngine.Random.Range(0.5f, 3f);
+        }
+        else
+        {
+            return AdditionalChallenge.settings.timeScale;
+        }
+    }
+    
+    public override void AddElementsToModMenu(Menu MenuRef)
+    {
+        MenuRef.AddElement(new HorizontalOption(ToggleName, ToggleDesc,
+            new [] { "Enabled", "Disabled" },
+            (i) =>
+            {
+                AdditionalChallenge.settings.Booleans[Key] = i == 0;
+                AdditionalChallenge.Instance.MatchSettings();
+                
+                MenuRef.Find($"TimeScaleOption").isVisible = i == 0;
+                MenuRef.Update();
+            },
+            () => AdditionalChallenge.settings.Booleans.ContainsKey(Key)
+                ? AdditionalChallenge.settings.Booleans[Key] ? 0 : 1 
+                : 1));
+        
+        float start = 0.5f, stop = 3f, step = 0.05f;
+        string[] options = new[] { "Random" };
+        options = options.Concat(Enumerable.Range((int)(start / step), (int)(Math.Abs(stop - start) / step) + 1)
+            .Select(x => (x * step).ToString()).ToArray()).ToArray();
+        MenuRef.AddElement(new HorizontalOption("Time Scale", "Choose Time Scale",
+            options,
+            i =>
+            {
+                if (i == 0)
+                {
+                    AdditionalChallenge.settings.timeScale = Mathf.Infinity;
+                }
+                else
+                {
+                    i--;
+                    AdditionalChallenge.settings.timeScale = ((i + (start / step)) * step);
+                }
+
+                //we dont need to set it as this one uses RepeatedDo method so when it can itll auto set it
+                
+            },
+            () =>
+            {
+                if (AdditionalChallenge.settings.timeScale == Mathf.Infinity)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return (int)((AdditionalChallenge.settings.timeScale / step) - (start / step)) + 1;
+                }
+            },
+            Id: $"TimeScaleOption")
+        {
+            isVisible =
+                AdditionalChallenge.settings.Booleans.ContainsKey(isEnabledKey) ?
+                    AdditionalChallenge.settings.Booleans[isEnabledKey] :
+                    false
+        });
+    }
+    
+    private string isEnabledKey => MiscExtensions.GetKey(this, nameof(IsEnabled));
 }

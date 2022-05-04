@@ -73,5 +73,5 @@ public abstract class AbstractPersistentEffect : AbstractEffects
                 : 1));
     }
 
-    private string Key => MiscExtensions.GetKey(this, nameof(IsEnabled));
+    protected string Key => MiscExtensions.GetKey(this, nameof(IsEnabled));
 }
