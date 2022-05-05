@@ -26,6 +26,7 @@ public abstract class AbstractPureVessel:AbstractBossAttack
         EditFSM();
 
         PV.GetComponent<MeshRenderer>().enabled = false;
+        PV.GetComponent<BoxCollider2D>().enabled = false;
         PV.GetComponent<HealthManager>().hp = Int32.MaxValue;
         ctrl.SetState("Init");
     }
@@ -37,6 +38,7 @@ public abstract class AbstractPureVessel:AbstractBossAttack
         }
         PV.SetActive(true);
         PV.GetComponent<MeshRenderer>().enabled = true;
+        PV.GetComponent<BoxCollider2D>().enabled = true;
         
         SetVars();
 

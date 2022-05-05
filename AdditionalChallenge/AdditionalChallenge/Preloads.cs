@@ -134,6 +134,9 @@ public static class Preloads
         {
             ("markoth", null), ("GG_Ghost_Markoth_V", "Warrior/Ghost Warrior Markoth")
         },
+        {
+            ("gorb", null), ("GG_Ghost_Gorb", "Warrior/Ghost Warrior Slug")
+        },
     };
     public static Dictionary<string, GameObject> InstantiableObjects { get; } = new();
     public static Dictionary<string, Shader> Shaders { get; } = new();

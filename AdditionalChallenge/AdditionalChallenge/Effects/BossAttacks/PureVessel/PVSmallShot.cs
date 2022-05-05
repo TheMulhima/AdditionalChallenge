@@ -14,12 +14,13 @@ public class PVSmallShot:AbstractPureVessel
         ctrl.GetState("Intro 1").ChangeTransition("FINISHED", "Intro Roar End");
         ctrl.GetState("Intro 1").GetAction<Wait>().time.Value = 0;
         var WaitingForSlashState = ctrl.CopyState("Intro Idle", WaitingForSlash);
-        WaitingForSlashState.Transitions = Array.Empty<FsmTransition>();
+        WaitingForSlashState.ClearTransitions();
         ctrl.GetState("Intro Idle").ChangeTransition("FINISHED", WaitingForSlash);
         ctrl.GetState("Idle Stance").ChangeTransition("FINISHED", WaitingForSlash);
         WaitingForSlashState.AddMethod(() =>
         {
             PV.GetComponent<MeshRenderer>().enabled = false;
+            PV.GetComponent<BoxCollider2D>().enabled = false;
             PV.transform.position = new Vector3(Mathf.Infinity, Mathf.Infinity);
         });
         
