@@ -66,18 +66,18 @@ public abstract class AbstractPureVessel:AbstractBossAttack
     protected virtual void SetPos()
     {
         var pos = HeroController.instance.transform.position;
-        float posadder = 0;
+        float posadder = 0, amount = 7f;
         if (HeroController.instance.move_input == 0)
         {
-            posadder += URandom.value < 0.5 ? -7 : 7;
+            posadder += URandom.value < 0.5 ? -amount : amount;
         }
         else if (Math.Abs(HeroController.instance.move_input - 1) < Mathf.Epsilon)
         {
-            posadder += 7;
+            posadder += amount;
         }
         else if (Math.Abs(HeroController.instance.move_input + 1) < Mathf.Epsilon)
         {
-            posadder += -7;
+            posadder += -amount;
         }
         PV.transform.position = pos + new Vector3(posadder, 3, 0);
     }

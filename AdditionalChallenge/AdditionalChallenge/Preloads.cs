@@ -137,6 +137,9 @@ public static class Preloads
         {
             ("gorb", null), ("GG_Ghost_Gorb", "Warrior/Ghost Warrior Slug")
         },
+        {
+            ("sheo", null), ("GG_Painter", "Battle Scene/Sheo Boss")
+        },
     };
     public static Dictionary<string, GameObject> InstantiableObjects { get; } = new();
     public static Dictionary<string, Shader> Shaders { get; } = new();
