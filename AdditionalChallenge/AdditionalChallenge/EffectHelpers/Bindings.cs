@@ -111,7 +111,7 @@ public static class BindingsHelper
         EventRegister.SendEvent("HIDE BOUND NAIL");
         PlayMakerFSM.BroadcastEvent("CHARM EQUIP CHECK");
         EventRegister.SendEvent("HIDE BOUND CHARMS");
-        GameManager.instance.soulOrb_fsm.SendEvent("MP LOSE");
+        if (GameManager.instance) GameManager.instance.soulOrb_fsm.SendEvent("MP LOSE");
         EventRegister.SendEvent("UNBIND VESSEL ORB");
         PlayMakerFSM.BroadcastEvent("CHARM INDICATOR CHECK");
         PlayMakerFSM.BroadcastEvent("HUD IN");

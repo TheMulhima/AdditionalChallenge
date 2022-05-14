@@ -4,7 +4,7 @@ public class SpawnJars:AbstractCoolDownEffect
     public override string ToggleName { get; protected set; } = "Spawn Jars";
     public override string ToggleDesc { get; protected set; } = "Spawns 5 collector jars from the ceiling";
 
-    internal override void DoEffect()
+    public override void DoEffect()
     {
         AdditionalChallenge.CoroutineSlave.StartCoroutine(DoSpawnJars());
     }

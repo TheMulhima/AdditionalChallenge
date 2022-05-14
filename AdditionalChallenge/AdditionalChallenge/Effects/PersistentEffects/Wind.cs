@@ -110,14 +110,14 @@ public class Wind: AbstractPersistentEffect
             new [] { "Enabled", "Disabled" },
             (i) =>
             {
-                AdditionalChallenge.settings.Booleans[Key] = i == 0;
+                AdditionalChallenge.settings.EffectIsEnabledDictionary[Key] = i == 0;
                 AdditionalChallenge.Instance.MatchSettings();
                 
                 MenuRef.Find($"WindSpeedOption").isVisible = i == 0;
                 MenuRef.Update();
             },
-            () => AdditionalChallenge.settings.Booleans.ContainsKey(Key)
-                ? AdditionalChallenge.settings.Booleans[Key] ? 0 : 1 
+            () => AdditionalChallenge.settings.EffectIsEnabledDictionary.ContainsKey(Key)
+                ? AdditionalChallenge.settings.EffectIsEnabledDictionary[Key] ? 0 : 1 
                 : 1));
         
         float start = -10f, stop = 10f, step = 0.5f;
@@ -157,8 +157,8 @@ public class Wind: AbstractPersistentEffect
             Id: $"WindSpeedOption")
         {
             isVisible =
-                AdditionalChallenge.settings.Booleans.ContainsKey(isEnabledKey) ?
-                    AdditionalChallenge.settings.Booleans[isEnabledKey] :
+                AdditionalChallenge.settings.EffectIsEnabledDictionary.ContainsKey(isEnabledKey) ?
+                    AdditionalChallenge.settings.EffectIsEnabledDictionary[isEnabledKey] :
                     false
         });
     }

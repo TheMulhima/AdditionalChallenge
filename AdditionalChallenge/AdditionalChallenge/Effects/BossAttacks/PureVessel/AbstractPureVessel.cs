@@ -1,4 +1,4 @@
-﻿namespace AdditionalChallenge.Effects.CoolDownEffects.BossAttacks;
+﻿namespace AdditionalChallenge.Effects.BossAttacks;
 
 public abstract class AbstractPureVessel:AbstractBossAttack
 {
@@ -30,7 +30,7 @@ public abstract class AbstractPureVessel:AbstractBossAttack
         PV.GetComponent<HealthManager>().hp = Int32.MaxValue;
         ctrl.SetState("Init");
     }
-    internal override void Attack()
+    public override void Attack()
     {
         if (PV == null || ctrl == null)
         {

@@ -23,6 +23,6 @@ public class CarverHatcher:AbstractEnemyFollow
             fsm.FsmVariables.FindFsmGameObject("Cage").Value = cage;
         });
         fsm.SetState("Init");
-        SFCore.Utils.FsmUtil.MakeLog(Enemy.LocateMyFSM("Centipede Hatcher"));
+        //SFCore.Utils.FsmUtil.MakeLog(Enemy.LocateMyFSM("Centipede Hatcher"));
     }
 }

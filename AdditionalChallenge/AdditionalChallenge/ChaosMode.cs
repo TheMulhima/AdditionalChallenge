@@ -46,8 +46,8 @@ public static class ChaosMode
         //choose numEffects number of effects
         AdditionalChallenge.Instance.Log("Gettting enabled list");
         List<AbstractEffects> enabledList = AdditionalChallenge.AllEffects.Where(effect => 
-            AdditionalChallenge.settings.Booleans.ContainsKey(MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))) 
-            && AdditionalChallenge.settings.Booleans[MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))]).ToList();
+            AdditionalChallenge.settings.EffectIsEnabledDictionary.ContainsKey(MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))) 
+            && AdditionalChallenge.settings.EffectIsEnabledDictionary[MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))]).ToList();
 
         int numEffects = AdditionalChallenge.settings.numEffects;
         if (enabledList.Count == 0) return;
@@ -71,8 +71,8 @@ public static class ChaosMode
     {
         controller.Stop();
         foreach (var effect in AdditionalChallenge.AllEffects.
-                     Where(effect => AdditionalChallenge.settings.Booleans.ContainsKey(MiscExtensions.GetKey(effect, nameof(effect.IsEnabled)))).
-                     Where(effect => AdditionalChallenge.settings.Booleans[MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))]))
+                     Where(effect => AdditionalChallenge.settings.EffectIsEnabledDictionary.ContainsKey(MiscExtensions.GetKey(effect, nameof(effect.IsEnabled)))).
+                     Where(effect => AdditionalChallenge.settings.EffectIsEnabledDictionary[MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))]))
         {
             effect!.Load();
         }
@@ -82,7 +82,6 @@ public static class ChaosMode
 public class ChaosModeController : MonoBehaviour
 {
     private float timer;
-    private float delayTimer;
     
     private bool HandleTimer()
     {

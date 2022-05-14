@@ -1,4 +1,4 @@
-﻿namespace AdditionalChallenge.Effects.CoolDownEffects.BossAttacks.Sheo;
+﻿namespace AdditionalChallenge.Effects.BossAttacks;
 public class SheoSlash:AbstractSheoAttack
 {
     public override string ToggleName { get; protected set; } = "Sheo Slash";

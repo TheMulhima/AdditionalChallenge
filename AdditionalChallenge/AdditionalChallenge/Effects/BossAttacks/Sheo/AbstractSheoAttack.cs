@@ -1,4 +1,4 @@
-﻿namespace AdditionalChallenge.Effects.CoolDownEffects.BossAttacks.Sheo;
+﻿namespace AdditionalChallenge.Effects.BossAttacks;
 
 public abstract class AbstractSheoAttack:AbstractBossAttack
 {
@@ -72,7 +72,7 @@ public abstract class AbstractSheoAttack:AbstractBossAttack
         Sheo.GetComponent<HealthManager>().hp = Int32.MaxValue;
         nailmaster_sheo.SetState("Init");
     }
-    internal override void Attack()
+    public override void Attack()
     {
         if (Sheo == null || nailmaster_sheo == null)
         {

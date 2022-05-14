@@ -5,7 +5,7 @@ public class LightningAttack:AbstractCoolDownEffect
     public override string ToggleName { get; protected set; } = "LightningAttack";
     public override string ToggleDesc { get; protected set; } = "Get followed by Uumuu's zap attack";
 
-    internal override void DoEffect()
+    public override void DoEffect()
     {
         AdditionalChallenge.CoroutineSlave.StartCoroutine(DoZapAttack());
     }

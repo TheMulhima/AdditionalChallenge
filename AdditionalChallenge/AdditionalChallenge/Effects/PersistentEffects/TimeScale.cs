@@ -73,14 +73,14 @@ public class TimeScale:AbstractPersistentEffect
             new [] { "Enabled", "Disabled" },
             (i) =>
             {
-                AdditionalChallenge.settings.Booleans[Key] = i == 0;
+                AdditionalChallenge.settings.EffectIsEnabledDictionary[Key] = i == 0;
                 AdditionalChallenge.Instance.MatchSettings();
                 
                 MenuRef.Find($"TimeScaleOption").isVisible = i == 0;
                 MenuRef.Update();
             },
-            () => AdditionalChallenge.settings.Booleans.ContainsKey(Key)
-                ? AdditionalChallenge.settings.Booleans[Key] ? 0 : 1 
+            () => AdditionalChallenge.settings.EffectIsEnabledDictionary.ContainsKey(Key)
+                ? AdditionalChallenge.settings.EffectIsEnabledDictionary[Key] ? 0 : 1 
                 : 1));
         
         float start = 0.5f, stop = 3f, step = 0.05f;
@@ -118,8 +118,8 @@ public class TimeScale:AbstractPersistentEffect
             Id: $"TimeScaleOption")
         {
             isVisible =
-                AdditionalChallenge.settings.Booleans.ContainsKey(isEnabledKey) ?
-                    AdditionalChallenge.settings.Booleans[isEnabledKey] :
+                AdditionalChallenge.settings.EffectIsEnabledDictionary.ContainsKey(isEnabledKey) ?
+                    AdditionalChallenge.settings.EffectIsEnabledDictionary[isEnabledKey] :
                     false
         });
     }

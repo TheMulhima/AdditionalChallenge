@@ -5,7 +5,7 @@ public class SpawnRevek:AbstractCoolDownEffect
     public override string ToggleName { get; protected set; } = "Spawn a revek";
     public override string ToggleDesc { get; protected set; } = "Spawns a revek that goes away after 30 seconds or 1 parry";
 
-    internal override void DoEffect()
+    public override void DoEffect()
     {
         AdditionalChallenge.CoroutineSlave.StartCoroutine(DoSpawnRevek());
     }

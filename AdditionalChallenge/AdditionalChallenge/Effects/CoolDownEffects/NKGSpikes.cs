@@ -4,7 +4,7 @@ public class NKGSpikes:AbstractCoolDownEffect
     public override string ToggleName { get; protected set; } = "NKG spikes";
     public override string ToggleDesc { get; protected set; } = "Spawns NKG spikes where you stand";
 
-    internal override void DoEffect()
+    public override void DoEffect()
     {
         AdditionalChallenge.CoroutineSlave.StartCoroutine(ReleaseNKGSpikes());
     }

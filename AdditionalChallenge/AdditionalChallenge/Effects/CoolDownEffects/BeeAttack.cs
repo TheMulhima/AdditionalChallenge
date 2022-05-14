@@ -4,7 +4,7 @@ public class BeeAttack: AbstractCoolDownEffect
     public override string ToggleName { get; protected set; } = "Areal Bee Attack";
     public override string ToggleDesc { get; protected set; } = "Hive Knights bees attack you from above";
     
-    internal override void DoEffect()
+    public override void DoEffect()
     {
         if (HeroController.instance == null) return;
         Vector3 pos = HeroController.instance.transform.position;

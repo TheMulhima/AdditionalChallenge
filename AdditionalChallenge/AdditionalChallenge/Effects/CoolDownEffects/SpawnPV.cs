@@ -5,7 +5,7 @@ public class SpawnPV:AbstractCoolDownEffect
     public override string ToggleName { get; protected set; } = "Spawn Pure Vessel";
     public override string ToggleDesc { get; protected set; } = "Spawns the pure vessel near you";
 
-    internal override void DoEffect()
+    public override void DoEffect()
     {
         // stolen from https://github.com/SalehAce1/PathOfPureVessel
         var pos = HeroController.instance.gameObject.transform.position;

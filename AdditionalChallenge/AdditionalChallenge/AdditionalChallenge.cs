@@ -7,16 +7,17 @@ public class AdditionalChallenge : Mod, IGlobalSettings<GlobalSettings>, ICustom
 {
     internal static AdditionalChallenge Instance;
     internal static GameObject ComponentHolder;
-    internal static NonBouncer CoroutineSlave;
+    public static NonBouncer CoroutineSlave;
     public static GlobalSettings settings { get; set; } = new GlobalSettings();
     public void OnLoadGlobal(GlobalSettings s) => settings = s;
     public GlobalSettings OnSaveGlobal() => settings;
-
+    
     public override string GetVersion() => Satchel.AssemblyUtils.GetAssemblyVersionHash();
-
-    [ItemCanBeNull] internal static List<AbstractEffects> AllEffects = new List<AbstractEffects>();
-
+    
+    [ItemCanBeNull] public static List<AbstractEffects> AllEffects = new List<AbstractEffects>();
     internal List<AudioClip> Clips = new List<AudioClip>();
+
+    public static int StoreableEffects = 5;
 
     public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
     {
@@ -78,35 +79,40 @@ public class AdditionalChallenge : Mod, IGlobalSettings<GlobalSettings>, ICustom
         }
         foreach (var effect in AllEffects)
         {
-            if (!settings.Booleans.ContainsKey(MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))))
+            //if key is missing, add entry in dict and set default to false
+            if (!settings.EffectIsEnabledDictionary.ContainsKey(MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))))
             {
-                settings.Booleans[MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))] = false;
+                settings.EffectIsEnabledDictionary[MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))] = false;
             }
-            effect!.SetEnabled(settings.Booleans[MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))]);
+            
+            //match the isEnabled of effect with the GS Dict setting
+            effect!.SetEnabled(settings.EffectIsEnabledDictionary[MiscExtensions.GetKey(effect, nameof(effect.IsEnabled))]);
+            
+            //Do same for cooldowns
             if (effect is AbstractCoolDownEffect cooldownEffect)
             {
-                if (!settings.Floats.ContainsKey(MiscExtensions.GetKey(cooldownEffect, nameof(cooldownEffect.coolDown))))
+                if (!settings.EffectCoolDownDictionary.ContainsKey(MiscExtensions.GetKey(cooldownEffect, nameof(cooldownEffect.coolDown))))
                 {
-                    settings.Floats[MiscExtensions.GetKey(cooldownEffect, nameof(cooldownEffect.coolDown))] = 0;
+                    settings.EffectCoolDownDictionary[MiscExtensions.GetKey(cooldownEffect, nameof(cooldownEffect.coolDown))] = 0;
                 }
                 cooldownEffect.coolDown =
-                    settings.Floats[MiscExtensions.GetKey(cooldownEffect, nameof(cooldownEffect.coolDown))];
+                    settings.EffectCoolDownDictionary[MiscExtensions.GetKey(cooldownEffect, nameof(cooldownEffect.coolDown))];
             }
             else if (effect is AbstractBossAttack bossAttack)
             {
-                if (!settings.Floats.ContainsKey(MiscExtensions.GetKey(bossAttack, nameof(bossAttack.timeBetweenAttacks))))
+                if (!settings.EffectCoolDownDictionary.ContainsKey(MiscExtensions.GetKey(bossAttack, nameof(bossAttack.timeBetweenAttacks))))
                 {
-                    settings.Floats[MiscExtensions.GetKey(bossAttack, nameof(bossAttack.timeBetweenAttacks))] = 0;
+                    settings.EffectCoolDownDictionary[MiscExtensions.GetKey(bossAttack, nameof(bossAttack.timeBetweenAttacks))] = 0;
                 }
                 bossAttack.timeBetweenAttacks =
-                    settings.Floats[MiscExtensions.GetKey(bossAttack, nameof(bossAttack.timeBetweenAttacks))];
+                    settings.EffectCoolDownDictionary[MiscExtensions.GetKey(bossAttack, nameof(bossAttack.timeBetweenAttacks))];
             }
         }
     }
 
     public override List<(string, string)> GetPreloadNames() => Preloads.ObjectList.Values.ToList();
 
-    public MenuScreen GetMenuScreen(MenuScreen modListMenu, ModToggleDelegates? _) =>
+    public MenuScreen GetMenuScreen(MenuScreen modListMenu, ModToggleDelegates? dels) =>
         ModMenu.CreateMenuScreen(modListMenu);
 
 

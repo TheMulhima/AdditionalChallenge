@@ -1,4 +1,4 @@
-﻿namespace AdditionalChallenge.Effects.CoolDownEffects.BossAttacks;
+﻿namespace AdditionalChallenge.Effects.BossAttacks;
 
 public class PVSmallShot:AbstractPureVessel
 {

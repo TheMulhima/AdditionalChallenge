@@ -3,7 +3,7 @@
         <ProjectGuid>{B66C8E1B-C360-4881-B21F-8C1583AE2398}</ProjectGuid>
         <RootNamespace>AdditionalChallenge</RootNamespace>
         <AssemblyTitle>AdditionalChallenge</AssemblyTitle>
-        <AssemblyVersion>0.0.1.2</AssemblyVersion>
+        <AssemblyVersion>0.0.1.3</AssemblyVersion>
         <Deterministic>true</Deterministic>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <LangVersion>latest</LangVersion>
@@ -14,6 +14,9 @@
         <OutputDirectory>$(HollowKnightFolder)/Mods</OutputDirectory>
 
 
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile />
     </PropertyGroup>
 
     <!-- Same References -->
@@ -106,6 +109,12 @@
 
     <ItemGroup>
         <EmbeddedResource Include="Assets\shaders" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\README.md">
+        <Link>README.md</Link>
+      </Content>
     </ItemGroup>
 
     <Target Name="CopyMod" AfterTargets="PostBuildEvent">

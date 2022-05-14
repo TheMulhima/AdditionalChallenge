@@ -5,7 +5,7 @@ public class AbsRadOrbs:AbstractCoolDownEffect
     public override string ToggleName { get; protected set; } = "Abs Rad Orbs";
     public override string ToggleDesc { get; protected set; } = "Spawns Abs Rad orbs on you";
 
-    internal override void DoEffect()
+    public override void DoEffect()
     {
         AdditionalChallenge.CoroutineSlave.StartCoroutine(ReleaseAbsRadOrbs());
     }

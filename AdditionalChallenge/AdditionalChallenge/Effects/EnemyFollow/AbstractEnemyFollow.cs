@@ -78,11 +78,11 @@ public abstract class AbstractEnemyFollow:AbstractEffects
             new [] { "Enabled", "Disabled" },
             (i) =>
             {
-                AdditionalChallenge.settings.Booleans[Key] = i == 0;
+                AdditionalChallenge.settings.EffectIsEnabledDictionary[Key] = i == 0;
                 AdditionalChallenge.Instance.MatchSettings();
             },
-            () => AdditionalChallenge.settings.Booleans.ContainsKey(Key)
-                ? AdditionalChallenge.settings.Booleans[Key] ? 0 : 1 
+            () => AdditionalChallenge.settings.EffectIsEnabledDictionary.ContainsKey(Key)
+                ? AdditionalChallenge.settings.EffectIsEnabledDictionary[Key] ? 0 : 1 
                 : 1));
     }
 

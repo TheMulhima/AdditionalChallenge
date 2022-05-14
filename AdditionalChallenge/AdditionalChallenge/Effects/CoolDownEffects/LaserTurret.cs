@@ -4,7 +4,7 @@ public class LaserTurret:AbstractCoolDownEffect
     public override string ToggleName { get; protected set; } = "Summon Laser Turret";
     public override string ToggleDesc { get; protected set; } = "Summons crystal peak lasers";
 
-    internal override void DoEffect()
+    public override void DoEffect()
     {
         Vector3 pos = HeroController.instance.transform.position;
 

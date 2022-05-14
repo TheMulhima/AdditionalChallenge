@@ -1,4 +1,4 @@
-﻿namespace AdditionalChallenge.Effects.CoolDownEffects.BossAttacks;
+﻿namespace AdditionalChallenge.Effects.BossAttacks;
 public class GrimmDiveDash:AbstractNKG
 {
     public override string ToggleName { get; protected set; } = "Grimm DiveDash";

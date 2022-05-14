@@ -1,4 +1,4 @@
-﻿namespace AdditionalChallenge.Effects.CoolDownEffects.BossAttacks;
+﻿namespace AdditionalChallenge.Effects.BossAttacks;
 
 public abstract class AbstractBossAttack : AbstractEffects
 {
@@ -11,7 +11,7 @@ public abstract class AbstractBossAttack : AbstractEffects
         };
     }
     
-    internal abstract void Attack();
+    public abstract void Attack();
     protected abstract void CreateBoss();
 
     public float timeBetweenAttacks { get; set; }
@@ -70,14 +70,14 @@ public abstract class AbstractBossAttack : AbstractEffects
             new[] { "Enabled", "Disabled" },
             (i) =>
             {
-                AdditionalChallenge.settings.Booleans[isEnabledKey] = i == 0;
+                AdditionalChallenge.settings.EffectIsEnabledDictionary[isEnabledKey] = i == 0;
                 AdditionalChallenge.Instance.MatchSettings();
 
                 MenuRef.Find($"{ToggleName} cool down").isVisible = i == 0;
                 MenuRef.Update();
             },
-            () => AdditionalChallenge.settings.Booleans.ContainsKey(isEnabledKey)
-                ? (AdditionalChallenge.settings.Booleans[isEnabledKey] ? 0 : 1)
+            () => AdditionalChallenge.settings.EffectIsEnabledDictionary.ContainsKey(isEnabledKey)
+                ? (AdditionalChallenge.settings.EffectIsEnabledDictionary[isEnabledKey] ? 0 : 1)
                 : 1));
 
         float start = 0;
@@ -88,14 +88,14 @@ public abstract class AbstractBossAttack : AbstractEffects
                 .Select(x => (x * step).ToString()).ToArray(),
             i =>
             {
-                AdditionalChallenge.settings.Floats[TimeBetweenAttacksKey] = ((i + (start / step)) * step);
+                AdditionalChallenge.settings.EffectCoolDownDictionary[TimeBetweenAttacksKey] = ((i + (start / step)) * step);
                 AdditionalChallenge.Instance.MatchSettings();
             },
             () =>
             {
-                if (AdditionalChallenge.settings.Floats.ContainsKey(TimeBetweenAttacksKey))
+                if (AdditionalChallenge.settings.EffectCoolDownDictionary.ContainsKey(TimeBetweenAttacksKey))
                 {
-                    return (int)((AdditionalChallenge.settings.Floats[TimeBetweenAttacksKey] / step) - (start / step));
+                    return (int)((AdditionalChallenge.settings.EffectCoolDownDictionary[TimeBetweenAttacksKey] / step) - (start / step));
                 }
 
                 return (int)start;
@@ -103,8 +103,8 @@ public abstract class AbstractBossAttack : AbstractEffects
             Id: $"{ToggleName} cool down")
         {
             isVisible =
-                AdditionalChallenge.settings.Booleans.ContainsKey(isEnabledKey)
-                    ? AdditionalChallenge.settings.Booleans[isEnabledKey]
+                AdditionalChallenge.settings.EffectIsEnabledDictionary.ContainsKey(isEnabledKey)
+                    ? AdditionalChallenge.settings.EffectIsEnabledDictionary[isEnabledKey]
                     : false
         });
     }

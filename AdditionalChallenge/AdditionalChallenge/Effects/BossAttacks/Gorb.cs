@@ -1,4 +1,4 @@
-﻿namespace AdditionalChallenge.Effects.CoolDownEffects.BossAttacks;
+﻿namespace AdditionalChallenge.Effects.BossAttacks;
 
 public class GorbAttack:AbstractBossAttack
 {
@@ -70,7 +70,7 @@ public class GorbAttack:AbstractBossAttack
         
         
     }
-    internal override void Attack()
+    public override void Attack()
     {
         if (Gorb == null || Attacking == null)
         {

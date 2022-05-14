@@ -1,4 +1,4 @@
-﻿namespace AdditionalChallenge.Effects.CoolDownEffects.BossAttacks;
+﻿namespace AdditionalChallenge.Effects.BossAttacks;
 public class GrimmFlamePillar:AbstractNKG
 {
     public override string ToggleName { get; protected set; } = "Grimm FlamePillar";

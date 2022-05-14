@@ -1,4 +1,4 @@
-﻿namespace AdditionalChallenge.Effects.CoolDownEffects.BossAttacks;
+﻿namespace AdditionalChallenge.Effects.BossAttacks;
 
 public abstract class AbstractNKG:AbstractBossAttack
 {
@@ -31,7 +31,7 @@ public abstract class AbstractNKG:AbstractBossAttack
         Grimm.GetComponent<HealthManager>().hp = Int32.MaxValue;
     }
 
-    internal override void Attack()
+    public override void Attack()
     {
         if (Grimm == null || ctrl == null)
         {
