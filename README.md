@@ -2,7 +2,7 @@
 A mod that allows you to use effects to make your game more challenging. Most of the effects from hollow twitch and more are available in the modmenu to be used.
 
 ## How it works
-There are 42 [available effects](#available-effects) that can each be enabled separately from the modmenu. Also, cooldown effects and boss attacks have an additional setting called "coolDown" that dictates after how much time the effect will run again.  
+There are 46 [available effects](#available-effects) that can each be enabled separately from the modmenu. Also, cooldown effects and boss attacks have an additional setting called "coolDown" that dictates after how much time the effect will run again.
 There is also a [chaos mode](#chaos-mode) that randomly selects from enabled list and does the effects
 
 ## Available Effects
@@ -10,6 +10,7 @@ There are 4 types of effects available, persistent, cool down, boss attacks and 
 #### **Persistent Effects**
 These are effects that are completely enabled or completely disabled.
 - Bindings: Enables all pantheon bindings
+- Broken Legs: All falls are hard falls
 - Camera Flip: Flip the camera
 - Camera Invert: Inverts the colors of the camera
 - Camera Mirror: Mirrors the camera
@@ -22,6 +23,7 @@ These are effects that are completely enabled or completely disabled.
 - Nail Scale: Change your nail length
 - SFX Rando: randomizes SFX
 - Slip: Makes the floor slipery
+- Sticky Floor: You cannot move (run/dash) while grounded
 - Increase TimeScale: Make TimeScale to a random value between 0.5 and 3 
 - Wind: Makes it so you always have to face wind
 #### **CoolDown Effects**
