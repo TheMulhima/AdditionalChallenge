@@ -41,11 +41,34 @@ public class ToServerRequestEffect:IPacketData
     public bool DropReliableDataIfNewerExists { get; } = true;
 }
 
+public class SendSettings:IPacketData
+{
+    public float EffectUnloadTime { get; set; }
+    public float KeyPressDownTime { get; set; }
+
+    public void WriteData(IPacket packet)
+    {
+        packet.Write(EffectUnloadTime);
+        packet.Write(KeyPressDownTime);
+    }
+
+    public void ReadData(IPacket packet)
+    {
+        EffectUnloadTime = packet.ReadFloat();
+        KeyPressDownTime = packet.ReadFloat();
+    }
+
+    public bool IsReliable { get; } = true;
+    public bool DropReliableDataIfNewerExists { get; } = true;
+}
+
 public enum ToServerPackets
 {
     RequestAnEffectToBeRun,
+    RequestSettings
 }
 public enum ToClientPackets
 { 
     RequestAnEffectToBeRun,
+    SendSettings
 }

@@ -4,22 +4,15 @@ public class ACHKMP : Mod, IGlobalSettings<GlobalSettings>, ICustomMenuMod
 {
     internal static ACHKMP Instance;
 
+    private bool holdInput = false;
+
+    public float EffectUnloadTime = HKMPInfo.DefaultEffectUnloadTime;
+    public float KeyPressDownTime = HKMPInfo.DefaultKeyPressDownTime;
+    
     public static GlobalSettings settings { get; set; } = new GlobalSettings();
-    public void OnLoadGlobal(GlobalSettings s)
-    {
-        settings = s;
-        if (settings.EffectNames == null || settings.TargetPlayers == null || settings.EffectNames.Count == 0 || settings.TargetPlayers.Count == 0)
-        {
-            //TODO: MAke it use values from list and not make it 0,1,2,3,4
-            settings.EffectNames = new List<string>(AdditionalChallenge.AdditionalChallenge.StoreableEffects);
-            settings.TargetPlayers = new List<string>(AdditionalChallenge.AdditionalChallenge.StoreableEffects);
+    public void OnLoadGlobal(GlobalSettings s) => settings = s;
 
-            settings.EffectNames.AddRange(Enumerable.Range(0, AdditionalChallenge.AdditionalChallenge.StoreableEffects).Select(x => x.ToString()));
-            settings.TargetPlayers.AddRange(Enumerable.Range(0, AdditionalChallenge.AdditionalChallenge.StoreableEffects).Select(x => x.ToString()));
-        }
-    }
-
-    public GlobalSettings OnSaveGlobal() => settings;
+        public GlobalSettings OnSaveGlobal() => settings;
 
     public override string GetVersion() => AssemblyUtils.GetAssemblyVersionHash();
     
@@ -32,6 +25,62 @@ public class ACHKMP : Mod, IGlobalSettings<GlobalSettings>, ICustomMenuMod
         
         ClientAddon.RegisterAddon(Client);
         ServerAddon.RegisterAddon(Server);
+
+        ModHooks.HeroUpdateHook += () =>
+        {
+            if (Client._clientApi.NetClient is { IsConnected: true })
+            {
+                settings.Keybinds.RunIfKeyPressed((i) =>
+                {
+                    if (!holdInput)
+                    {
+                        holdInput = true;
+                        AdditionalChallenge.AdditionalChallenge.CoroutineSlave.StartCoroutine(ResetHoldInput());
+                    }
+                    bool targetEveryone = settings.TargetPlayers[i] == ModMenu.AllPlayers[0];
+                    ushort playerId;
+                    if (!targetEveryone)
+                    {
+                        try
+                        {
+                            playerId =  Client._clientApi.ClientManager.Players
+                                .First(player => string.Equals(player.Username, settings.TargetPlayers[i], StringComparison.CurrentCultureIgnoreCase)).Id;
+                        }
+                        catch (InvalidOperationException e)
+                        {
+                            playerId = 60001;
+                        }
+                    }
+                    else
+                    {
+                        playerId = 60000;
+                    }
+                    if (settings.EffectNames[i] == "")
+                    {
+                        Log($"No connection {settings.TargetPlayers[i]} or effect name empty {settings.EffectNames[i]}");
+                        return;
+                    }
+                    Client.SendRequest(new ToServerRequestEffect()
+                    {
+                        effectName = settings.EffectNames[i],
+                        targetEveryone = targetEveryone,
+                        targetPlayerId = playerId,
+                    });
+                });
+            }
+        };
+        Dictionary<string, float> x = new Dictionary<string, float>()
+        {
+            { nameof(EffectUnloadTime), HKMPInfo.DefaultEffectUnloadTime },
+            { nameof(KeyPressDownTime), HKMPInfo.DefaultKeyPressDownTime },
+        };
+        Log(JsonConvert.SerializeObject(x, Formatting.Indented));
+    }
+
+    private IEnumerator ResetHoldInput()
+    {
+        yield return new WaitForSecondsRealtime(KeyPressDownTime);
+        holdInput = false;
     }
 
     public MenuScreen GetMenuScreen(MenuScreen modListMenu, ModToggleDelegates? _) =>

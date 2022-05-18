@@ -4,9 +4,24 @@ public class GlobalSettings
 {
     [JsonConverter(typeof(PlayerActionSetConverter))]
     public KeyBinds Keybinds = new KeyBinds();
-    
-    public List<string> EffectNames = new List<string>();
-    public List<string> TargetPlayers = new List<string>();
+
+    public List<string> EffectNames = new List<string>()
+    {
+        "", 
+        "", 
+        "",
+        "", 
+        ""
+    };
+
+    public List<string> TargetPlayers = new List<string>()
+    {
+        ModMenu.AllPlayers[0],
+        ModMenu.AllPlayers[0],
+        ModMenu.AllPlayers[0],
+        ModMenu.AllPlayers[0],
+        ModMenu.AllPlayers[0],
+    };
 }
 
 

@@ -1,3 +1,6 @@
+using Hkmp.Networking.Packet.Data;
+using JetBrains.Annotations;
+
 namespace ACHKMP;
 
 public class ACClient:ClientAddon
@@ -7,7 +10,7 @@ public class ACClient:ClientAddon
     {
         _clientApi = clientApi;
         
-        _clientApi.CommandManager.RegisterCommand(new SendEffectCommand());
+        //_clientApi.CommandManager.RegisterCommand(new SendEffectCommand());
         
         var netReceiver = _clientApi.NetClient.GetNetworkReceiver<ToClientPackets>(this, InstantiatePacket);
         var netSender = _clientApi.NetClient.GetNetworkSender<ToServerPackets>(this);
@@ -15,26 +18,46 @@ public class ACClient:ClientAddon
         netReceiver.RegisterPacketHandler<ToClientRequestEffect>(
             ToClientPackets.RequestAnEffectToBeRun,
             RequestAnEffectToBeRun);
+        
+        netReceiver.RegisterPacketHandler<SendSettings>(
+            ToClientPackets.SendSettings,
+            (packet) =>
+            {
+                Modding.Logger.Log("Received new settings");
+                ACHKMP.Instance.EffectUnloadTime = packet.EffectUnloadTime;
+                ACHKMP.Instance.KeyPressDownTime = packet.KeyPressDownTime;
+                Modding.Logger.Log($"{ACHKMP.Instance.EffectUnloadTime}, {ACHKMP.Instance.KeyPressDownTime}");
+            });
 
         _clientApi.ClientManager.ConnectEvent += () => ModMenu.HKMPMenu.Update();
+        _clientApi.ClientManager.ConnectEvent += () =>
+        {
+            netSender.SendSingleData(ToServerPackets.RequestSettings, new ReliableEmptyData());
+        };
 
+    }
+
+    public void SendRequest(ToServerRequestEffect packet)
+    {
+        var netSender = _clientApi.NetClient.GetNetworkSender<ToServerPackets>(this);
+        netSender.SendSingleData(ToServerPackets.RequestAnEffectToBeRun, packet);
     }
 
     private void RequestAnEffectToBeRun(ToClientRequestEffect packet)
     {
+        Logger.Warn(this,$"{packet.effectName}");
         //effectName is parsed and then sent i hope
         AbstractEffects effect;
         try
         {
-            effect = AdditionalChallenge.AdditionalChallenge.AllEffects.Find(eff => eff.name == packet.effectName);
+            effect = AdditionalChallenge.AdditionalChallenge.AllEffects.First(eff => eff.ToggleName == packet.effectName);
         }
-        catch (ArgumentNullException e)
+        catch (InvalidOperationException e)
         {
             ACHKMP.Instance.LogError(e);
             return;
         }
         
-        effect.Load();
         switch (effect)
         {
             case AbstractCoolDownEffect coolDownEffect:
@@ -43,17 +66,27 @@ public class ACClient:ClientAddon
             case AbstractBossAttack bossAttack:
                 bossAttack.Attack();
                 break;
+            case AbstractPersistentEffect persistentEffect:
+                StartNonCoolDownEffect(persistentEffect);
+                break;
+            
+            case AbstractEnemyFollow enemyFollow:
+                StartNonCoolDownEffect(enemyFollow);
+                break;
         }
+    }
 
+    private void StartNonCoolDownEffect(AbstractEffects effect)
+    {
+        IEnumerator UnloadEffectEventually(AbstractEffects ToUnloadeffect)
+        {
+            yield return new WaitForSeconds(ACHKMP.Instance.EffectUnloadTime);
+            ToUnloadeffect.Unload();
+        }
+        
+        effect.Load();
         AdditionalChallenge.AdditionalChallenge.CoroutineSlave.StartCoroutine(UnloadEffectEventually(effect));
     }
-
-    private IEnumerator UnloadEffectEventually(AbstractEffects effect)
-    {
-        yield return new WaitForSeconds(30f);
-        effect.Unload();
-    }
-    
 
     private static IPacketData InstantiatePacket(ToClientPackets Clientpackets)
     {
@@ -61,6 +94,8 @@ public class ACClient:ClientAddon
         {
             case ToClientPackets.RequestAnEffectToBeRun:
                 return new ToClientRequestEffect();
+            case ToClientPackets.SendSettings:
+                return new SendSettings();
             default:
                 ACHKMP.Instance.LogError($"{Clientpackets} not found");
                 return null;
