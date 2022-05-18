@@ -40,7 +40,6 @@ public class GlobalSettings
             
             //we need to wait for the components to actually be gettable
             yield return null;
-            yield return null;
 
             foreach (var effect in AdditionalChallenge.ComponentHolder.GetComponents(typeof(AbstractEffects)))
             {
