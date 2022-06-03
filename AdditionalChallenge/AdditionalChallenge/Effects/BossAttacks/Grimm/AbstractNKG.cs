@@ -28,7 +28,10 @@ public abstract class AbstractNKG:AbstractBossAttack
         
         Grimm.SetActive(true);
         ctrl.SetState("Init");
-        Grimm.GetComponent<HealthManager>().hp = Int32.MaxValue;
+        var HM = Grimm.GetComponent<HealthManager>();
+        HM.hp = Int32.MaxValue;
+        HM.IsInvincible = true;
+        ReflectionHelper.SetField(HM, "ignoreAcid", true);
     }
 
     public override void Attack()

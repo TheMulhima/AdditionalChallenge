@@ -24,10 +24,14 @@ public abstract class AbstractPureVessel:AbstractBossAttack
             .ForEach(collider => collider.isTrigger = true);
         
         EditFSM();
+        Destroy(PV.LocateMyFSM("Stun Control"));
 
         PV.GetComponent<MeshRenderer>().enabled = false;
         PV.GetComponent<BoxCollider2D>().enabled = false;
-        PV.GetComponent<HealthManager>().hp = Int32.MaxValue;
+        var HM = PV.GetComponent<HealthManager>();
+        HM.hp = Int32.MaxValue;
+        HM.IsInvincible = true;
+        ReflectionHelper.SetField(HM, "ignoreAcid", true);
         ctrl.SetState("Init");
     }
     public override void Attack()

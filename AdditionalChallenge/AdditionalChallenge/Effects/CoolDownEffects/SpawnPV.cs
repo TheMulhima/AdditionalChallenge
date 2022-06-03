@@ -12,7 +12,7 @@ public class SpawnPV:AbstractCoolDownEffect
         float x = pos.x;
         float y = pos.y;
 
-        GameObject pv = UObject.Instantiate
+        GameObject pv = Instantiate
         (
             Preloads.InstantiableObjects["pv"],
             pos + new Vector3(0, 2.6f),
@@ -57,7 +57,13 @@ public class SpawnPV:AbstractCoolDownEffect
                 fsm.GetAction<FloatCompare>("Outside Arena?", 3).float2.Value = -Mathf.Infinity;
             }
         );
+        
+        
         control.GetState("HUD Out").RemoveAction(0);
+        var introRoar = control.GetState("Intro Roar");
+        introRoar.RemoveAction(5);
+        introRoar.RemoveAction(4);
+        control.GetState("Intro Roar End").RemoveAction(3);
 
         var cp = pv.GetComponent<ConstrainPosition>();
         cp.xMax = x + castRight.distance;

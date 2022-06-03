@@ -3,7 +3,7 @@
         <ProjectGuid>{B66C8E1B-C360-4881-B21F-8C1583AE2398}</ProjectGuid>
         <RootNamespace>AdditionalChallenge</RootNamespace>
         <AssemblyTitle>AdditionalChallenge</AssemblyTitle>
-        <AssemblyVersion>0.0.1.3</AssemblyVersion>
+        <AssemblyVersion>0.0.2.0</AssemblyVersion>
         <Deterministic>true</Deterministic>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <LangVersion>latest</LangVersion>
@@ -25,7 +25,7 @@
             <HintPath>$(HollowKnightFolder)\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="DebugMod, Version=1.4.9.4, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods\DebugMod\DebugMod.dll</HintPath>
+          <HintPath>$(HollowKnightFolder)\Mods\DebugMod\DebugMod.dll</HintPath>
         </Reference>
         <Reference Include="MagicUI">
             <HintPath>$(HollowKnightFolder)\Mods\Dependancies\MagicUI.dll</HintPath>
@@ -45,14 +45,14 @@
         <Reference Include="PlayMaker, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(HollowKnightFolder)\PlayMaker.dll</HintPath>
         </Reference>
-        <Reference Include="SFCore, Version=1.5.2.4, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods\Dependancies\SFCore.dll</HintPath>
+        <Reference Include="SFCore, Version=1.5.3.1, Culture=neutral, PublicKeyToken=null">
+          <HintPath>$(HollowKnightFolder)\Mods\SFCore\SFCore.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(HollowKnightFolder)\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+          <HintPath>$(HollowKnightFolder)\UnityEngine.AssetBundleModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(HollowKnightFolder)\UnityEngine.AudioModule.dll</HintPath>
@@ -100,10 +100,10 @@
             <HintPath>$(HollowKnightFolder)\mscorlib.dll</HintPath>
         </Reference>
         <Reference Include="Satchel">
-            <HintPath>$(HollowKnightFolder)\Mods\Dependancies\Satchel.dll</HintPath>
+            <HintPath>$(HollowKnightFolder)\Mods\Satchel\Satchel.dll</HintPath>
         </Reference>
         <Reference Include="Vasi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods\Dependancies\Vasi.dll</HintPath>
+          <HintPath>$(HollowKnightFolder)\Mods\Dependancies\Vasi.dll</HintPath>
         </Reference>
     </ItemGroup>
 

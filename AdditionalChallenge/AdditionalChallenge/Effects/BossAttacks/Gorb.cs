@@ -64,7 +64,10 @@ public class GorbAttack:AbstractBossAttack
 
         Gorb.GetComponent<MeshRenderer>().enabled = false;
         Gorb.GetComponent<BoxCollider2D>().enabled = false;
-        Gorb.GetComponent<HealthManager>().hp = Int32.MaxValue;
+        var HM = Gorb.GetComponent<HealthManager>();
+        HM.hp = Int32.MaxValue;
+        HM.IsInvincible = true;
+        ReflectionHelper.SetField(HM, "ignoreAcid", true);
         Attacking.SetState("Init");
         Movement.SetState("Init");
         
