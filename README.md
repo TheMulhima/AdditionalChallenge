@@ -70,6 +70,11 @@ There are 4 toggles for this mode.
 3. Number of effects: The number of effects that happen on every cycle
 4. Effects trigger delay: Only works when Number of effects is more than 1. It allows you to create a delay between triggering effects, allowing you to make it so multiple effects dont happen at once and effects are happening all the time.
 > Note: In this mode only enabled effects are selected
+ 
+## Dependancies
+- DebugMod
+- Satchel
+- Vasi
 
 ## Credits
 Thank you to Sid003 and 56 for creating [Hollow Twitch](https://github.com/Sid-003/HKTwitch) from which most cooldown and persistent effects were taken from

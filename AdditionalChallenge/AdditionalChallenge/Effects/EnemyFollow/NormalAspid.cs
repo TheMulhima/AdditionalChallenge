@@ -1,5 +1,4 @@
 ﻿using Satchel;
-using SFCore.Utils;
 
 namespace AdditionalChallenge.Effects.EnemyFollow;
 

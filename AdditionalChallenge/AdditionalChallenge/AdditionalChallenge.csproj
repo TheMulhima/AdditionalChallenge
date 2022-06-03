@@ -24,12 +24,6 @@
         <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(HollowKnightFolder)\Assembly-CSharp.dll</HintPath>
         </Reference>
-        <Reference Include="DebugMod, Version=1.4.9.4, Culture=neutral, PublicKeyToken=null">
-          <HintPath>$(HollowKnightFolder)\Mods\DebugMod\DebugMod.dll</HintPath>
-        </Reference>
-        <Reference Include="MagicUI">
-            <HintPath>$(HollowKnightFolder)\Mods\Dependancies\MagicUI.dll</HintPath>
-        </Reference>
         <Reference Include="MMHOOK_PlayMaker, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(HollowKnightFolder)\MMHOOK_PlayMaker.dll</HintPath>
         </Reference>
@@ -44,9 +38,6 @@
         </Reference>
         <Reference Include="PlayMaker, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(HollowKnightFolder)\PlayMaker.dll</HintPath>
-        </Reference>
-        <Reference Include="SFCore, Version=1.5.3.1, Culture=neutral, PublicKeyToken=null">
-          <HintPath>$(HollowKnightFolder)\Mods\SFCore\SFCore.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <HintPath>$(HollowKnightFolder)\UnityEngine.dll</HintPath>
@@ -102,8 +93,11 @@
         <Reference Include="Satchel">
             <HintPath>$(HollowKnightFolder)\Mods\Satchel\Satchel.dll</HintPath>
         </Reference>
-        <Reference Include="Vasi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Reference Include="Vasi">
           <HintPath>$(HollowKnightFolder)\Mods\Dependancies\Vasi.dll</HintPath>
+        </Reference>
+        <Reference Include="DebugMod">
+          <HintPath>$(HollowKnightFolder)\Mods\DebugMod\DebugMod.dll</HintPath>
         </Reference>
     </ItemGroup>
 

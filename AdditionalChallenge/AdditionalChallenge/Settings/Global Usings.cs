@@ -14,8 +14,6 @@ global using System.Linq;
 global using HutongGames.PlayMaker;
 global using UnityEngine.SceneManagement;
 global using HutongGames.PlayMaker.Actions;
-global using MagicUI.Core;
-global using MagicUI.Elements;
 global using InControl;
 global using Modding.Converters;
 global using Newtonsoft.Json;
