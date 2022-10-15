@@ -28,10 +28,10 @@ public abstract class AbstractPureVessel:AbstractBossAttack
 
         PV.GetComponent<MeshRenderer>().enabled = false;
         PV.GetComponent<BoxCollider2D>().enabled = false;
-        var HM = PV.GetComponent<HealthManager>();
+        var HM = PV.GetComponent<HealthManager>().Reflect();
         HM.hp = Int32.MaxValue;
-        HM.IsInvincible = true;
-        ReflectionHelper.SetField(HM, "ignoreAcid", true);
+        HM.IsInvincible = true; 
+        HM.ignoreAcid = true;
         ctrl.SetState("Init");
     }
     public override void Attack()

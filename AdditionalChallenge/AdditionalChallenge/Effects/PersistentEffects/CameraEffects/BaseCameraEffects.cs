@@ -21,7 +21,8 @@ public abstract class BaseCameraEffects: AbstractPersistentEffect
     protected static CameraEffects activeEffects;
     protected static Matrix4x4 reflectMatrix = Matrix4x4.identity;
     public static Material invertMat;
-    protected static UCamera cam => ReflectionHelper.GetField<tk2dCamera, UCamera>(GameCameras.instance.tk2dCam, "_unityCamera");
+
+    protected static UCamera cam => GameCameras.instance.tk2dCam.Reflect()._unityCamera;
     protected abstract CameraEffects thisCameraEffect { get; set; }
     protected abstract void RemoveEffect();
     protected abstract void EnableEffect();

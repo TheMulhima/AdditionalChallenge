@@ -3,7 +3,7 @@
         <ProjectGuid>{B66C8E1B-C360-4881-B21F-8C1583AE2398}</ProjectGuid>
         <RootNamespace>AdditionalChallenge</RootNamespace>
         <AssemblyTitle>AdditionalChallenge</AssemblyTitle>
-        <AssemblyVersion>0.0.2.0</AssemblyVersion>
+        <AssemblyVersion>0.0.2.1</AssemblyVersion>
         <Deterministic>true</Deterministic>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <LangVersion>latest</LangVersion>
@@ -94,10 +94,13 @@
             <HintPath>$(HollowKnightFolder)\Mods\Satchel\Satchel.dll</HintPath>
         </Reference>
         <Reference Include="Vasi">
-          <HintPath>$(HollowKnightFolder)\Mods\Dependancies\Vasi.dll</HintPath>
+          <HintPath>$(HollowKnightFolder)\Mods\Vasi\Vasi.dll</HintPath>
         </Reference>
         <Reference Include="DebugMod">
           <HintPath>$(HollowKnightFolder)\Mods\DebugMod\DebugMod.dll</HintPath>
+        </Reference>
+        <Reference Include="HKMirror">
+          <HintPath>$(HollowKnightFolder)\Mods\HKMirror\HKMirror.dll</HintPath>
         </Reference>
     </ItemGroup>
 

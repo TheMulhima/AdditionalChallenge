@@ -69,10 +69,10 @@ public abstract class AbstractSheoAttack:AbstractBossAttack
         
         Sheo.GetComponent<MeshRenderer>().enabled = false;
         Sheo.GetComponent<BoxCollider2D>().enabled = false;
-        var HM = Sheo.GetComponent<HealthManager>();
+        var HM = Sheo.GetComponent<HealthManager>().Reflect();
         HM.hp = Int32.MaxValue;
         HM.IsInvincible = true;
-        ReflectionHelper.SetField(HM, "ignoreAcid", true);
+        HM.ignoreAcid = true;
         nailmaster_sheo.SetState("Init");
     }
     public override void Attack()

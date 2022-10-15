@@ -25,6 +25,8 @@ global using AdditionalChallenge.Effects.PersistentEffects;
 global using AdditionalChallenge.Effects.BossAttacks;
 global using AdditionalChallenge.Effects.EnemyFollow;
 global using AdditionalChallenge.EffectHelpers;
+global using HKMirror;
+global using HKMirror.InstanceClasses;
 global using ReflectionHelper = Modding.ReflectionHelper;
 global using UObject = UnityEngine.Object;
 global using URandom = UnityEngine.Random;

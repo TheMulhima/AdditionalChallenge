@@ -16,7 +16,7 @@ public static class BindingsHelper
     [UsedImplicitly]
     public static int BoundNailDamage()
     {
-        int @base = PlayerData.instance.nailDamage;
+        int @base = PlayerDataAccess.nailDamage;
 
         return @base < 13 ? Mathf.RoundToInt(@base * .8f) : 13;
     }
@@ -92,17 +92,17 @@ public static class BindingsHelper
 
         GameManager.instance.soulOrb_fsm.SetState("Bound");
 
-        if (PlayerData.instance.equippedCharms.Count == 0) yield break;
+        if (PlayerDataAccess.equippedCharms.Count == 0) yield break;
 
-        foreach (int charm in PlayerData.instance.equippedCharms)
+        foreach (int charm in PlayerDataAccess.equippedCharms)
         {
             GameManager.instance.SetPlayerDataBool($"equippedCharm_{charm}", false);
         }
 
         // ToList for a copy
-        _prevCharms = PlayerData.instance.equippedCharms.ToList();
+        _prevCharms = PlayerDataAccess.equippedCharms.ToList();
 
-        PlayerData.instance.equippedCharms.Clear();
+        PlayerDataAccess.equippedCharms.Clear();
     }
 
     private static void RestoreBindingsUI()
@@ -131,7 +131,7 @@ public static class BindingsHelper
                 PlayerData.instance.SetBool($"equippedCharm_{charm}", true);
             }
 
-            PlayerData.instance.equippedCharms.AddRange(_prevCharms);
+            PlayerDataAccess.equippedCharms.AddRange(_prevCharms);
 
             _prevCharms.Clear();
         }

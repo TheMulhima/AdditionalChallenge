@@ -28,7 +28,7 @@ public class Wind: AbstractPersistentEffect
 
     private bool NoWindOnBench(string s, bool orig)
     {
-        if (s == nameof(PlayerData.atBench))
+        if (s == nameof(PlayerDataAccess.atBench))
         {
             if (orig)
             {

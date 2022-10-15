@@ -55,9 +55,9 @@ public abstract class AbstractEnemyFollow:AbstractEffects
         Enemy.SetActive(true);
         Enemy.SetActiveChildren(true);
         Enemy.transform.position = GetRandomPosForEnemy();
-        var hm = Enemy.GetComponent<HealthManager>();
+        var hm = Enemy.GetComponent<HealthManager>().Reflect();
         hm.hp = Int32.MaxValue;
-        ReflectionHelper.SetField(hm,"enemyType", 6);//remove soul gain
+        hm.enemyType = 6;//remove soul gain
     }
 
     protected GameObject Enemy;
