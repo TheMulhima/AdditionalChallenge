@@ -46,6 +46,7 @@ public class GorbAttack:AbstractBossAttack
             Gorb.GetComponent<MeshRenderer>().enabled = false;
             Gorb.GetComponent<BoxCollider2D>().enabled = false;
             Gorb.transform.position = new Vector2(Mathf.Infinity, Mathf.Infinity);
+            Gorb.GetComponent<AudioSource>().Stop();
         });
         
         Attacking.GetState("Antic").InsertMethod(0, () =>
@@ -59,11 +60,14 @@ public class GorbAttack:AbstractBossAttack
             float posaddery = URandom.Range(4, 10);
 
             Gorb.transform.position = pos + new Vector3(posadderx, posaddery, Gorb.transform.position.z);
+            Gorb.GetComponent<AudioSource>().Play();
         });
 
 
         Gorb.GetComponent<MeshRenderer>().enabled = false;
         Gorb.GetComponent<BoxCollider2D>().enabled = false;
+        Gorb.GetComponent<AudioSource>().Stop();
+        Gorb.GetComponent<AudioSource>().playOnAwake = false;
         var HM = Gorb.GetComponent<HealthManager>().Reflect();
         HM.hp = Int32.MaxValue;
         HM.IsInvincible = true;
